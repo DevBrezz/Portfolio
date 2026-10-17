@@ -10,18 +10,17 @@ import { Donate } from './pages/Donate';
 import { BootScreen } from './components/BootScreen';
 import { useEffect, useState } from 'react';
 import { Report } from './pages/Report';
-import { KingBrezzAssistant } from './components/KingBrezzAssistant';
-import { AnimatePresence } from 'framer-motion';
 import { LanguageProvider } from './lib/i18n';
+import { KingBrezzAssistant } from './components/KingBrezzAssistant';
+import { FloatingDonate } from './components/FloatingDonate';
+import { VisitorBadge } from './components/VisitorBadge';
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(true);
-  useEffect(() => { const timer = window.setTimeout(() => setShowIntro(false), 4000); return () => window.clearTimeout(timer); }, []);
   return (
     <LanguageProvider><BrowserRouter>
-      <AnimatePresence>{showIntro && <BootScreen key="boot-screen" />}</AnimatePresence>
       <div className="min-h-screen flex flex-col bg-mc-black text-mc-text">
         <Navbar />
+        <VisitorBadge />
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -37,6 +36,7 @@ export default function App() {
         </main>
         <Footer />
         <KingBrezzAssistant />
+        <FloatingDonate />
       </div>
     </BrowserRouter></LanguageProvider>
   );
