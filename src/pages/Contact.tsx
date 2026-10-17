@@ -4,7 +4,7 @@ import { Copy, Check, ExternalLink, Mail, ArrowUpRight, ShieldCheck, MessageCirc
 import { copyToClipboard } from '../lib/utils';
 
 const DISCORD_INVITE = 'https://discord.gg/wzBqRXWp';
-const DISCORD_LOGO = 'https://static.wikia.nocookie.net/spore/images/a/af/Discord_Logo.png/revision/latest?cb=20170930163302';
+const DISCORD_LOGO = 'https://i.imgur.com/e0dQjuB.png';
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
