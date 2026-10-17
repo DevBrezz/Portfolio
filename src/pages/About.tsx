@@ -25,6 +25,18 @@ export function About() {
           <a className="profile-link" href="https://www.spigotmc.org/resources/authors/brezz.2530124/" target="_blank" rel="noreferrer">SpigotMC <ArrowUpRight size={15}/></a>
         </div>
       </motion.section>
+      <section className="identity-panel mt-12" aria-labelledby="identity-title">
+        <div className="identity-panel-heading">
+          <span className="eyebrow">THE NAME BEHIND THE WORK</span>
+          <h2 id="identity-title" className="text-2xl sm:text-3xl font-bold text-mc-white mt-3 tracking-tight">Who is KingBrezz?</h2>
+          <p className="identity-lead">KingBrezz is the creator name associated with earlier work. The portfolio identity is now <strong>DevBrezz</strong> — the name to use when exploring current projects.</p>
+        </div>
+        <div className="identity-grid">
+          <article className="identity-card"><span className="identity-number">01</span><h3>What can he build?</h3><p>Minecraft server plugins and tools such as economy systems, claims, custom enchantments, anti-dupe and anti-cheat style protections, utility automation, monitoring, and performance diagnostics. Exact features depend on each project.</p></article>
+          <article className="identity-card"><span className="identity-number">02</span><h3>Who is it for?</h3><p>Server owners and developers who need configurable gameplay systems, administration tools, integrations, and protection features for Paper/Spigot-based servers.</p></article>
+          <article className="identity-card identity-card-wide"><span className="identity-number">03</span><h3>Has he contributed to major servers?</h3><p>I won't claim an official contribution to a large server without a public, verifiable source. Public plugin releases and project repositories show development work, but they do not by themselves prove that a specific large server used a plugin or hired the creator.</p><div className="identity-links"><a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer">Browse public Modrinth projects <ArrowUpRight size={14}/></a><a href="https://www.spigotmc.org/resources/authors/brezz.2530124/" target="_blank" rel="noreferrer">Browse SpigotMC releases <ArrowUpRight size={14}/></a></div></article>
+        </div>
+      </section>
       <motion.section initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="about-story mt-12">
         <div><div className="eyebrow">MY APPROACH</div><h2 className="text-2xl font-bold text-mc-white mt-3">Useful software, not just more software.</h2></div>
         <div className="about-copy"><p>I work across the full plugin lifecycle: shaping an idea, implementing it, testing compatibility, documenting configuration, and preparing releases that server owners can actually operate.</p><p>I care about the details that often get overlooked — sensible defaults, safe data handling, clear messages, predictable performance, and being transparent about testing status. A feature is only useful when it behaves correctly in a live server environment.</p></div>
