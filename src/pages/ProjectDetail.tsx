@@ -1,12 +1,15 @@
 import { useParams, Link } from 'react-router-dom';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Download, Package, Calendar, Tag } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Download, Package, Calendar, Tag, X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { useResources } from '../hooks/useResources';
 import { formatDate, formatNumber, cn } from '../lib/utils';
 
 export function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const { resources, loading } = useResources();
+  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
   const resource = resources.find((r) => r.id === id);
 
   if (loading) {
@@ -140,7 +143,7 @@ export function ProjectDetail() {
               <h2 className="text-lg font-semibold text-mc-white mb-3">Gallery</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {resource.gallery.map((url, i) => (
-                  <img key={i} src={url} alt="" className="rounded-lg border border-mc-border w-full object-cover" loading="lazy" />
+                  <button key={i} type="button" className="detail-gallery-thumb" onClick={() => { setLightbox(url); setZoom(1); }} aria-label={`Open gallery image ${i + 1}`}><img src={url} alt={`${resource.title} screenshot ${i + 1}`} className="rounded-lg border border-mc-border w-full object-cover" loading="lazy"/><span><ZoomIn size={14}/> View full image</span></button>
                 ))}
               </div>
             </div>
@@ -152,6 +155,7 @@ export function ProjectDetail() {
           </p>
         </motion.div>
       </div>
+      {lightbox && <div className="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Plugin screenshot viewer" onClick={() => setLightbox(null)}><div className="gallery-lightbox-toolbar" onClick={e=>e.stopPropagation()}><span>{resource.title}<small> · Screenshot preview</small></span><button onClick={()=>setZoom(z=>Math.max(.5,z-.25))} aria-label="Zoom out"><ZoomOut size={18}/></button><button onClick={()=>setZoom(1)} aria-label="Reset zoom"><RotateCcw size={17}/></button><button onClick={()=>setZoom(z=>Math.min(3,z+.25))} aria-label="Zoom in"><ZoomIn size={18}/></button><button onClick={()=>setLightbox(null)} aria-label="Close viewer"><X size={20}/></button></div><div className="gallery-lightbox-stage" onClick={e=>e.stopPropagation()}><img src={lightbox} alt={`${resource.title} full-size screenshot`} style={{transform:`scale(${zoom})`}} onWheel={e=>{e.preventDefault();setZoom(z=>Math.max(.5,Math.min(3,z+(e.deltaY<0?.1:-.1))))}}/></div><div className="gallery-lightbox-bottom">Click outside to close · Zoom {Math.round(zoom*100)}%</div></div>}
     </div>
   );
 }
