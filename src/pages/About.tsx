@@ -1,130 +1,46 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Check, ExternalLink, Mail, ArrowUpRight, ShieldCheck, MessageCircle } from 'lucide-react';
-import { copyToClipboard } from '../lib/utils';
+import { Code2, Server, Shield, Wrench, Target, Boxes, HeartHandshake, ArrowUpRight, Orbit } from 'lucide-react';
 
-const DISCORD_INVITE = 'https://discord.gg/wzBqRXWp';
-const DISCORD_LOGO = 'https://i.imgur.com/e0dQjuB.png';
-
-export function Contact() {
-  const [copied, setCopied] = useState(false);
-  const [logoFailed, setLogoFailed] = useState(false);
-  const discord = '@Brezzz';
-
-  const handleCopy = async () => {
-    const ok = await copyToClipboard(discord);
-    if (ok) {
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
-  return (
-    <div className="contact-galaxy relative min-h-screen overflow-hidden pt-28 pb-20">
-      <div className="contact-stars contact-stars-a" aria-hidden="true" />
-      <div className="contact-stars contact-stars-b" aria-hidden="true" />
-      <div className="contact-nebula contact-nebula-one" aria-hidden="true" />
-      <div className="contact-nebula contact-nebula-two" aria-hidden="true" />
-      <div className="contact-orbit contact-orbit-one" aria-hidden="true" />
-      <div className="contact-orbit contact-orbit-two" aria-hidden="true" />
-
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
-        <motion.header
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: 'easeOut' }}
-          className="mx-auto mb-12 max-w-3xl text-center"
-        >
-          <div className="contact-eyebrow mx-auto mb-5 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em]">
-            <span className="contact-status-dot" /> Open channel · Contact
+export function About() {
+  const principles = [
+    { icon: Target, title: 'Purpose before features', desc: 'Every feature should solve a real server-owner or player problem, not just inflate a changelog.' },
+    { icon: Boxes, title: 'Built for real servers', desc: 'Configuration, compatibility, data safety, and clear failure states matter as much as the happy path.' },
+    { icon: Shield, title: 'Security-minded design', desc: 'Protection systems focus on predictable behavior, careful validation, and minimizing false positives.' },
+    { icon: HeartHandshake, title: 'Clear communication', desc: 'Release notes and support should be honest about what passed, what is untested, and what is unsupported.' },
+  ];
+  const focus = [
+    { icon: Code2, title: 'Plugin engineering', desc: 'Java plugins for Paper, Spigot, Purpur, and Folia with configurable behavior and maintainable code.' },
+    { icon: Server, title: 'SMP systems', desc: 'Economy, claims, custom enchantments, utilities, automation, and gameplay features.' },
+    { icon: Shield, title: 'Server protection', desc: 'Anti-dupe, anti-freecam, detection, and abuse-prevention tools designed for multiplayer environments.' },
+    { icon: Wrench, title: 'Operations & performance', desc: 'Monitoring, cleanup, restart workflows, compatibility testing, and practical diagnostics.' },
+  ];
+  return <div className="pt-24 pb-20 min-h-screen mc-grid-bg">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <motion.section initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} className="about-hero">
+        <div className="about-cosmic-layout">
+          <div className="about-cosmic-copy">
+            <div className="eyebrow"><Orbit size={13}/> THE PERSON BEHIND THE PLUGINS</div>
+            <h1 className="section-heading about-title">I build tools that make<br className="hidden sm:block"/> Minecraft servers <span>better.</span></h1>
+            <p className="about-lead">I’m <strong>KingBrezz</strong>, an independent developer creating Minecraft plugins and tools for the people who run and play on servers. I enjoy turning ideas into useful systems — from gameplay and economy features to protection, automation, and performance utilities.</p>
+            <p className="about-lead about-lead-small">My goal is simple: make server administration smoother, give communities better tools, and keep releases honest about compatibility, testing, and limitations.</p>
           </div>
-          <h1 className="contact-heading text-5xl font-black tracking-tight sm:text-7xl">
-            Let&apos;s build <span>something great.</span>
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
-            Have a plugin idea, found a bug, or want to collaborate? Send a message and let&apos;s make it happen.
-          </p>
-        </motion.header>
-
-        <motion.a
-          href={DISCORD_INVITE}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Join the KingBrezz Discord server"
-          initial={{ opacity: 0, y: 28, scale: 0.985 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.12, ease: 'easeOut' }}
-          whileHover={{ y: -5, scale: 1.006 }}
-          whileTap={{ scale: 0.99 }}
-          className="discord-hero group mx-auto block max-w-5xl rounded-[2rem] p-5 sm:p-8 lg:p-10"
-        >
-          <div className="discord-hero-grid">
-            <div className="discord-logo-panel">
-              {!logoFailed ? (
-                <img
-                  src={DISCORD_LOGO}
-                  alt="Discord logo"
-                  loading="lazy"
-                  decoding="async"
-                  onError={() => setLogoFailed(true)}
-                  className="discord-wordmark"
-                />
-              ) : (
-                <div className="discord-wordmark-fallback"><MessageCircle size={46} /> <span>Discord</span></div>
-              )}
-              <div className="discord-logo-caption">KINGBREZZ COMMUNITY</div>
-            </div>
-
-            <div className="discord-hero-copy">
-              <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span className="discord-pill"><span className="contact-status-dot" /> Community invite</span>
-                <span className="discord-pill discord-pill-muted">Official contact hub</span>
-              </div>
-              <h2 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">Join the conversation.</h2>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300 sm:text-base">
-                Connect with KingBrezz, discuss Minecraft projects, share feedback, and get in touch through Discord.
-              </p>
-              <div className="discord-join-cta mt-6 inline-flex items-center gap-3 rounded-xl px-5 py-3.5 font-bold">
-                Join Discord <ArrowUpRight size={19} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </div>
-            </div>
-            <div className="discord-hero-orb" aria-hidden="true"><MessageCircle size={34} /></div>
+          <div className="globe-stage" role="img" aria-label="Animated three-dimensional digital globe representing the connected Minecraft development ecosystem">
+            <div className="globe-starfield"/><div className="globe-orbit globe-orbit-one"/><div className="globe-orbit globe-orbit-two"/>
+            <div className="globe-sphere"><div className="globe-longitude globe-longitude-a"/><div className="globe-longitude globe-longitude-b"/><div className="globe-latitude globe-latitude-a"/><div className="globe-latitude globe-latitude-b"/><div className="globe-land globe-land-one"/><div className="globe-land globe-land-two"/><div className="globe-land globe-land-three"/><div className="globe-glint"/></div>
+            <span className="globe-tag globe-tag-one">PLUGINS</span><span className="globe-tag globe-tag-two">COMMUNITY</span><span className="globe-tag globe-tag-three">IDEAS → CODE</span>
           </div>
-          <div className="discord-card-footer"><span>discord.gg/wzBqRXWp</span><span>Opens Discord invite <ExternalLink size={13} /></span></div>
-        </motion.a>
-
-        <div className="mx-auto mt-7 grid max-w-5xl grid-cols-1 gap-4 md:grid-cols-3">
-          <motion.section initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="contact-info-card">
-            <div className="contact-info-icon"><Copy size={19} /></div>
-            <h3>Direct username</h3>
-            <p>Prefer adding me directly? Copy my Discord username.</p>
-            <div className="mt-4 flex items-center justify-between gap-2 rounded-xl border border-white/10 bg-black/25 p-3">
-              <code className="font-mono font-semibold text-white">{discord}</code>
-              <button type="button" onClick={handleCopy} className="contact-copy-btn" aria-label="Copy Discord username">
-                {copied ? <Check size={16} /> : <Copy size={16} />}{copied ? 'Copied' : 'Copy'}
-              </button>
-            </div>
-          </motion.section>
-
-          <a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noopener noreferrer" className="contact-info-card contact-link-card">
-            <div className="contact-info-icon contact-icon-green"><ExternalLink size={19} /></div>
-            <h3>Modrinth</h3>
-            <p>Explore my Minecraft plugins, releases, and project updates.</p>
-            <span className="contact-card-link">View creator profile <ArrowUpRight size={15} /></span>
-          </a>
-
-          <a href="https://www.spigotmc.org/resources/authors/brezz.2530124/" target="_blank" rel="noopener noreferrer" className="contact-info-card contact-link-card">
-            <div className="contact-info-icon contact-icon-blue"><ShieldCheck size={19} /></div>
-            <h3>SpigotMC</h3>
-            <p>Find my Bukkit and Paper plugins on SpigotMC.</p>
-            <span className="contact-card-link">View author page <ArrowUpRight size={15} /></span>
-          </a>
         </div>
-
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45 }} className="contact-bottom-note mx-auto mt-8 flex max-w-5xl items-center justify-center gap-2 text-center text-xs sm:text-sm">
-          <Mail size={15} /> For bug reports, include the plugin version, server version, and steps to reproduce the issue.
-        </motion.div>
-      </div>
+        <div className="flex flex-wrap gap-3 mt-7">
+          <a className="profile-link" href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer">Modrinth <ArrowUpRight size={15}/></a>
+          <a className="profile-link" href="https://www.spigotmc.org/resources/authors/brezz.2530124/" target="_blank" rel="noreferrer">SpigotMC <ArrowUpRight size={15}/></a>
+        </div>
+      </motion.section>
+      <motion.section initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="about-story mt-12">
+        <div><div className="eyebrow">MY APPROACH</div><h2 className="text-2xl font-bold text-mc-white mt-3">Useful software, not just more software.</h2></div>
+        <div className="about-copy"><p>I work across the full plugin lifecycle: shaping an idea, implementing it, testing compatibility, documenting configuration, and preparing releases that server owners can actually operate.</p><p>I care about the details that often get overlooked — sensible defaults, safe data handling, clear messages, predictable performance, and being transparent about testing status. A feature is only useful when it behaves correctly in a live server environment.</p></div>
+      </motion.section>
+      <section className="mt-16"><div className="eyebrow">AREAS OF WORK</div><h2 className="text-2xl font-bold text-mc-white mt-2 mb-6">What I work on</h2><div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{focus.map((item, i) => <motion.article key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .06 }} className="about-card"><item.icon className="w-5 h-5 text-mc-red mb-4"/><h3>{item.title}</h3><p>{item.desc}</p></motion.article>)}</div></section>
+      <section className="mt-16"><div className="eyebrow">ENGINEERING PRINCIPLES</div><h2 className="text-2xl font-bold text-mc-white mt-2 mb-6">What matters to me</h2><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">{principles.map((item, i) => <motion.article key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .05 }} className="principle-card"><item.icon className="w-5 h-5 text-mc-red mb-3"/><h3>{item.title}</h3><p>{item.desc}</p></motion.article>)}</div></section>
     </div>
-  );
+  </div>;
 }
