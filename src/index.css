@@ -421,3 +421,31 @@ a:hover .brand-logo { transform: rotate(-4deg) scale(1.05); box-shadow: 0 0 32px
 .home-shield-panel-centered p { margin-left: auto; margin-right: auto; }
 .home-shield-panel-centered .shield-more { margin-top: 2px; }
 @media (prefers-reduced-motion: reduce) { .home-tagline-pair { animation: none !important; } }
+
+
+/* Home hero alignment and tighter, intentional vertical rhythm */
+.home-hero-content { display:flex; flex-direction:column; align-items:center; text-align:center; padding-top:3.5rem; padding-bottom:2rem; }
+.home-hero-eyebrow { justify-content:center; text-align:center; }
+.home-rotating-title { width:100%; margin-inline:auto; text-align:center; }
+.home-lead { width:min(100%,680px); margin:1.15rem auto 0; text-align:center; }
+.home-hero-actions { justify-content:center; width:100%; }
+.home-hero-actions > a { justify-content:center; }
+.home-hero-content .xp-console { margin-left:auto; margin-right:auto; }
+.home-hero-content .xp-secret { margin-left:auto; margin-right:auto; text-align:left; }
+.home-shield-panel-centered { text-align:center; justify-items:center; }
+.home-shield-panel-centered > div { width:100%; }
+.home-shield-panel-centered .shield-kicker { justify-content:center; }
+.home-shield-panel-centered p { margin-inline:auto; max-width:760px; }
+.home-shield-panel-centered .shield-more { margin-inline:auto; }
+.report-home-strip { margin-top:0; margin-bottom:0; }
+.home-start-section { margin-top:0; }
+@media (min-width:521px) { .home-hero-content { padding-top:4.25rem; padding-bottom:2.25rem; } }
+@media (max-width:520px) {
+  .home-hero-content { padding-top:6.4rem; padding-bottom:1.2rem; }
+  .home-hero-actions { gap:.6rem; }
+  .home-hero-actions > a { min-height:42px; }
+  .home-lead { max-width:34rem; }
+  .home-shield-panel-centered { margin-top:1.25rem; }
+  .report-home-strip { padding-top:1rem; padding-bottom:1rem; }
+  .home-start-section { padding-top:1.15rem; }
+}
