@@ -1,43 +1,28 @@
-# KingBrezz Portfolio
+# DevBrezz Portfolio
 
-Minecraft developer portfolio for **KingBrezz / ItsMe Brezz**.
+Minecraft developer portfolio for **DevBrezz**.
 
-Discord: **@Brezzz**
+Live website: https://devbrezz.github.io/Portfolio/
 
-Live (setelah deploy): https://yzz38-byte.github.io/
-
-## Setup lokal
+## Local setup
 
 ```bash
 npm install
 npm run dev
 ```
 
-Buka http://localhost:5173
+Open http://localhost:5173
 
-## Deploy ke GitHub Pages (root)
+## Deploy to GitHub Pages
 
-1. Buat repo bernama **tepat**:
-   ```
-   yzz38-byte.github.io
-   ```
-
-2. Push semua file ke branch `main`
-
-3. Repo → **Settings** → **Pages**
-   - Source: **GitHub Actions**
-
-4. Tab **Actions** → jalankan workflow **Deploy to GitHub Pages**
-   - Tunggu sampai hijau
-
-5. Buka:
-   ```
-   https://yzz38-byte.github.io/
-   ```
+1. Push the project to the `main` branch of the `Portfolio` repository under the `devbrezz` account.
+2. Open **Settings → Pages** and set **Source** to **GitHub Actions**.
+3. Open **Actions** and wait for **Deploy to GitHub Pages** to finish successfully.
+4. Visit https://devbrezz.github.io/Portfolio/
 
 ## Sync resources
 
-Otomatis setiap 6 jam via GitHub Actions, atau manual:
+Resources sync automatically every 6 hours, or run manually:
 
 ```bash
 npm run sync
