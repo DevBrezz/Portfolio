@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://YOUR_USERNAME.github.io/kingbrezz-portfolio/sitemap.xml
