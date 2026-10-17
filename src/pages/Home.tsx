@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ShieldCheck, UserRound, Boxes, Handshake, ChevronRight, Sparkles, Bug, Activity } from 'lucide-react';
 import { useResources } from '../hooks/useResources';
 import { ProjectCard } from '../components/ProjectCard';
@@ -17,11 +17,50 @@ const paths = [
   { number: '03', icon: Handshake, title: 'Contact & collaboration', text: 'Have an idea, issue, or project to build together?', to: '/contact', action: 'Get in touch' },
 ];
 
+const rotatingTaglines: Record<string, Array<[string, string]>> = {
+  en: [
+    ['Ideas into tools.', 'Better Minecraft worlds.'],
+    ['Plugins with purpose.', 'Servers built to last.'],
+    ['Code with intention.', 'Play without limits.'],
+    ['Small ideas, real impact.', 'Smarter Minecraft tools.'],
+    ['Build safely.', 'Create boldly.'],
+  ],
+  id: [
+    ['Ide jadi karya.', 'Dunia Minecraft lebih baik.'],
+    ['Plugin yang berguna.', 'Server yang lebih stabil.'],
+    ['Kode dengan tujuan.', 'Bermain tanpa batas.'],
+    ['Ide kecil, dampak nyata.', 'Tools Minecraft lebih cerdas.'],
+    ['Bangun dengan aman.', 'Berkarya tanpa ragu.'],
+  ],
+  zh: [
+    ['让想法变成工具。', '打造更好的 Minecraft 世界。'],
+    ['插件创造价值。', '服务器稳定运行。'],
+    ['用心编写代码。', '畅玩无限可能。'],
+    ['小想法，大影响。', '更智能的 Minecraft 工具。'],
+    ['安全构建。', '大胆创造。'],
+  ],
+  nl: [
+    ['Ideeën worden tools.', 'Betere Minecraft-werelden.'],
+    ['Plugins met een doel.', 'Servers die blijven draaien.'],
+    ['Code met intentie.', 'Speel zonder grenzen.'],
+    ['Kleine ideeën, echte impact.', 'Slimmere Minecraft-tools.'],
+    ['Bouw veilig.', 'Creëer met vertrouwen.'],
+  ],
+};
+
 export function Home() {
   const { resources, loading } = useResources();
   const { t, language } = useLanguage();
   const [xp, setXp] = useState(0);
   const [secretOpen, setSecretOpen] = useState(false);
+  const [taglineIndex, setTaglineIndex] = useState(0);
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setTaglineIndex((current) => (current + 1) % 5);
+    }, 10_000);
+    return () => window.clearInterval(intervalId);
+  }, []);
+  const activeTagline = (rotatingTaglines[language] ?? rotatingTaglines.en)[taglineIndex];
   const earnXp = () => { setXp((current) => { const next = Math.min(100, current + 10); if (next === 100) setSecretOpen(true); return next; }); };
   const featured = resources.filter((r) => r.platform === 'modrinth' && r.featured && !r.hidden);
   const projects = (featured.length ? featured : resources.filter((r) => r.platform === 'modrinth' && !r.hidden))
@@ -36,7 +75,13 @@ export function Home() {
       <div className="solar-system" aria-label="Animated solar system illustration" role="img"><div className="solar-orbit solar-orbit-outer"><i className="solar-planet planet-blue"/></div><div className="solar-orbit solar-orbit-mid"><i className="solar-planet planet-green"/></div><div className="solar-orbit solar-orbit-inner"><i className="solar-planet planet-red"/></div><div className="solar-sun"><span/></div><div className="solar-label solar-label-one">ORBITAL / 03</div><div className="solar-label solar-label-two">SYSTEM ONLINE</div></div>
       <motion.div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-24" initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
         <div className="eyebrow"><span className="status-pulse"/> {language === 'id' ? 'DEVELOPER INDEPENDEN · EKOSISTEM MINECRAFT' : language === 'zh' ? '独立开发者 · MINECRAFT 生态' : language === 'nl' ? 'ONAFHANKELIJKE DEVELOPER · MINECRAFT-ECOSYSTEEM' : 'INDEPENDENT DEVELOPER · MINECRAFT ECOSYSTEM'}</div>
-        <h1 className="hero-title home-title">{language === 'id' ? <>Ide jadi karya.<br/><span className="hero-gradient">Dunia Minecraft lebih baik.</span></> : language === 'zh' ? <>让想法变成工具。<br/><span className="hero-gradient">打造更好的 Minecraft 世界。</span></> : language === 'nl' ? <>Ideeën worden tools.<br/><span className="hero-gradient">Betere Minecraft-werelden.</span></> : <>Ideas into tools.<br/><span className="hero-gradient">Better Minecraft worlds.</span></>}</h1>
+        <h1 className="hero-title home-title home-rotating-title" aria-live="polite" aria-atomic="true">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span key={`${language}-${taglineIndex}`} className="home-tagline-pair" initial={{ opacity: 0, y: 14, filter: 'blur(5px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }} transition={{ duration: 0.55, ease: 'easeInOut' }}>
+              <span>{activeTagline[0]}</span><br/><span className="hero-gradient">{activeTagline[1]}</span>
+            </motion.span>
+          </AnimatePresence>
+        </h1>
         <p className="home-lead">{language === 'id' ? <>Saya <strong>KingBrezz</strong> — developer independen yang membuat plugin Minecraft dan alat server dengan fokus pada fitur praktis, desain matang, dan pengembangan transparan.</> : language === 'zh' ? <>我是 <strong>KingBrezz</strong>，一名独立开发者，专注于 Minecraft 插件、服务器工具、实用功能与透明开发。</> : language === 'nl' ? <>Ik ben <strong>KingBrezz</strong> — een onafhankelijke ontwikkelaar van Minecraft-plugins en servertools met aandacht voor praktische functies en transparante techniek.</> : <>I’m <strong>KingBrezz</strong> — an independent developer creating Minecraft plugins and server tools with a focus on practical features, thoughtful design, and transparent engineering.</>}</p>
         <div className="flex flex-wrap gap-3 mt-8">
           <Link to="/projects" className="home-primary">{t.browse} <ArrowRight size={17}/></Link>
@@ -49,7 +94,7 @@ export function Home() {
           <div className="xp-console-bottom"><span>{xp === 0 ? 'Tap to collect discovery XP' : xp < 100 ? 'Keep exploring to unlock a secret' : 'Secret unlocked · Nice work!'}</span><span>{xp}%</span></div>
         </button>
         {secretOpen && <motion.div className="xp-secret" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}><Sparkles size={16}/><div><strong>Hidden signal discovered.</strong><p>Good developers stay curious. Keep building, testing, and improving.</p></div><button type="button" onClick={() => setSecretOpen(false)} aria-label="Close secret">×</button></motion.div>}
-        <div className="home-shield-panel mt-8">
+        <div className="home-shield-panel home-shield-panel-centered mt-8">
           <div className="shield-emblem"><ShieldCheck size={31}/><span/></div>
           <div><div className="shield-kicker">SECURITY-MINDED DEVELOPMENT</div><h2>Built with safety in mind.</h2><p>I prioritize validation, predictable behavior, and careful data handling. Each release should be tested for its intended environment — no software can honestly be guaranteed 100% bug-free or risk-free.</p></div>
           <Link to="/about" className="shield-more" aria-label="Read about my engineering principles"><ChevronRight size={20}/></Link>
