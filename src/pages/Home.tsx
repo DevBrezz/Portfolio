@@ -75,6 +75,32 @@ export function Home() {
         <a href="#work" className="scroll-cue"><span>SCROLL TO EXPLORE</span><ArrowDownRight size={15} /></a>
       </section>
 
+      <section className="identity-hub max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20" aria-labelledby="identity-hub-title">
+        <div className="section-topline"><span className="eyebrow">EXPLORE THE PROFILE</span><span className="section-index">START HERE</span></div>
+        <div className="identity-hub-grid">
+          <div className="identity-menu-wrap">
+            <h2 id="identity-hub-title" className="section-heading">Kenali <span>di balik karya.</span></h2>
+            <p className="section-description identity-hub-description">Pilih topik untuk membuka halaman dengan penjelasan lebih lengkap.</p>
+            <div className="identity-menu">
+              <Link to="/about" className="identity-menu-card"><span className="identity-menu-number">01</span><span className="identity-menu-copy"><strong>Siapa KingBrezz?</strong><small>Cerita nama, identitas DevBrezz, dan fokus pengembangan.</small></span><ArrowUpRight size={19} /></Link>
+              <Link to="/projects" className="identity-menu-card"><span className="identity-menu-number">02</span><span className="identity-menu-copy"><strong>Apa yang dibuat?</strong><small>Plugin Minecraft, tools server, dan proyek web.</small></span><ArrowUpRight size={19} /></Link>
+              <Link to="/about" className="identity-menu-card"><span className="identity-menu-number">03</span><span className="identity-menu-copy"><strong>Skill & teknologi</strong><small>Java, Paper API, TypeScript, dan sistem pendukung.</small></span><ArrowUpRight size={19} /></Link>
+              <Link to="/contact" className="identity-menu-card"><span className="identity-menu-number">04</span><span className="identity-menu-copy"><strong>Kontak & kolaborasi</strong><small>Lihat cara menghubungi untuk diskusi proyek.</small></span><ArrowUpRight size={19} /></Link>
+            </div>
+          </div>
+          <div className="globe-panel">
+            <div className="globe-panel-top"><span className="globe-live-dot" /> DIGITAL WORLD <span className="globe-panel-index">01 / 04</span></div>
+            <div className="globe-stage" role="img" aria-label="Globe digital berputar perlahan">
+              <div className="globe-halo" />
+              <div className="globe-sphere"><div className="globe-grid-lines" /><svg className="globe-land" viewBox="0 0 320 320" aria-hidden="true"><path d="M55 69l20-18 29 5 13 17 26 3 8 17-13 14-2 18-20 12-5 25-16 8-11-18-18-7-4-21-17-13-2-20-13-8zM143 163l20 4 17 21-3 24-13 24-6 31-14 19-11-14 3-24-10-21 5-24-8-18zM182 67l24-14 25 8 15 19 23 5 17 17-6 17-21 1-7 15-18 1-9 17-14-4-3-20-18-9-12-19-13-3-3-18zM224 171l18-10 18 7 10 20-8 18-17 6-13-13zM267 235l14-5 10 12-9 15-14-4z" /></svg><div className="globe-shine" /></div>
+              <span className="globe-orbit globe-orbit-one" /><span className="globe-orbit globe-orbit-two" />
+            </div>
+            <div className="globe-caption"><h3>Built for a connected world.</h3><p>Setiap plugin adalah bagian kecil dari ekosistem yang lebih besar: server, developer, dan komunitas yang saling terhubung.</p></div>
+            <div className="globe-tags"><span>MINECRAFT</span><span>DEVELOPMENT</span><span>COMMUNITY</span></div>
+          </div>
+        </div>
+      </section>
+
       <section id="work" className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 scroll-mt-20">
         <div className="section-topline"><span className="eyebrow">SELECTED WORK</span><span className="section-index">01 — PROJECTS</span></div>
         <div className="section-intro"><div><h2 className="section-heading">Small details.<br /><span>Real impact.</span></h2><p className="section-description">A selection of projects built to solve real problems for Minecraft communities and server owners.</p></div><Link to="/projects" className="text-link">Browse all projects <ArrowRight size={16} /></Link></div>
