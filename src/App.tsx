@@ -7,6 +7,8 @@ import { ProjectDetail } from './pages/ProjectDetail';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { Donate } from './pages/Donate';
+import { BootScreen } from './components/BootScreen';
+import { useEffect, useState } from 'react';
 import { Report } from './pages/Report';
 import { LanguageProvider } from './lib/i18n';
 
