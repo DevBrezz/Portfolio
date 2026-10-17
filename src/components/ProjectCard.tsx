@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ExternalLink, Download, Package, Code2 } from 'lucide-react';
 import { useLanguage } from '../lib/i18n';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { X, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import type { Resource } from '../types/resource';
 import { formatNumber, formatDate, cn } from '../lib/utils';
 
@@ -12,6 +15,16 @@ interface Props {
 
 export function ProjectCard({ resource, index = 0 }: Props) {
   const { t } = useLanguage();
+  const [imageOpen, setImageOpen] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  useEffect(() => {
+    if (!imageOpen) return;
+    const previous = document.body.style.overflow;
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setImageOpen(false); };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => { document.body.style.overflow = previous; window.removeEventListener('keydown', onKey); };
+  }, [imageOpen]);
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -27,9 +40,12 @@ export function ProjectCard({ resource, index = 0 }: Props) {
             <div className="fallback-brand"><Code2 className="w-7 h-7" /><span>{resource.title.split(/\s+/).map((part) => part[0]).join('').slice(0, 3).toUpperCase()}</span></div>
           </div>
           {resource.icon && <img
+            onClick={(event) => { event.preventDefault(); event.stopPropagation(); setZoom(1); setImageOpen(true); }}
+            role="button" tabIndex={0} aria-label={`View ${resource.title} image full screen`}
+            onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); setZoom(1); setImageOpen(true); } }}
             src={resource.icon}
             alt={`${resource.title} logo`}
-            className="project-icon-image w-full h-full object-contain p-8 sm:p-10 group-hover:scale-105 transition-transform duration-500"
+            className="project-icon-image w-full h-full object-contain p-8 sm:p-10 group-hover:scale-105 transition-transform duration-500 cursor-zoom-in"
             loading="lazy"
             onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.parentElement?.classList.add('icon-fallback'); }}
           />}

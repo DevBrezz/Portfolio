@@ -31,10 +31,10 @@ export function Navbar() {
 
   return (
     <header className={cn(
-      'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+      'fixed top-0 left-0 right-0 z-50 transition-all duration-300 site-navbar',
       scrolled ? 'bg-mc-black/90 backdrop-blur-md border-b border-mc-border shadow-lg' : 'bg-transparent'
     )}>
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-[68px] flex items-center justify-between navbar-inner">
         <Link to="/" className="flex items-center gap-2 group">
           <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="brand-logo" />
           <span className="font-semibold text-mc-white tracking-tight">
@@ -61,7 +61,7 @@ export function Navbar() {
           </div>
         </div>
 
-        <button className="md:hidden p-2 text-mc-muted hover:text-mc-white" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+        <button className="md:hidden p-2.5 rounded-xl text-mc-muted hover:text-mc-white hover:bg-white/5 transition-colors" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </nav>
@@ -69,8 +69,8 @@ export function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-mc-dark border-b border-mc-border overflow-hidden">
-            <div className="px-4 py-3 flex flex-col gap-1">
+            className="md:hidden bg-mc-dark/95 backdrop-blur-xl border-b border-mc-border overflow-hidden mobile-nav-panel">
+            <div className="px-4 py-4 flex flex-col gap-2">
               <div className="mobile-language-row"><span><Languages size={15}/> Language</span><select aria-label="Choose language" value={language} onChange={(event) => setLanguage(event.target.value)}>{languages.map((item) => <option key={item.code} value={item.code}>{item.flag} {item.label}</option>)}</select></div>
               {links.map((l) => (
                 <Link key={l.to} to={l.to} className={cn(

@@ -10,7 +10,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
               <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="brand-logo brand-logo-small" />
-              <span className="font-semibold text-mc-white">DevBrezz</span>
+              <span className="font-semibold text-mc-white">KingBrezz</span>
             </div>
             <p className="text-sm text-mc-muted leading-relaxed">
               Minecraft plugins, tools & server development.
@@ -24,7 +24,6 @@ export function Footer() {
               <li><Link to="/projects" className="text-mc-text hover:text-mc-red transition-colors">Projects</Link></li>
               <li><Link to="/about" className="text-mc-text hover:text-mc-red transition-colors">About</Link></li>
               <li><Link to="/contact" className="text-mc-text hover:text-mc-red transition-colors">Contact</Link></li>
-              <li><Link to="/report" className="text-mc-text hover:text-mc-red transition-colors">Report a bug</Link></li>
             </ul>
           </div>
 
@@ -44,12 +43,12 @@ export function Footer() {
 
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-mc-muted mb-3">Contact</h4>
-            <p className="text-sm text-mc-text">Discord: <span className="text-mc-red font-medium">DevBrezz</span></p>
+            <p className="text-sm text-mc-text">Discord: <span className="text-mc-red font-medium">KingBrezz</span></p>
           </div>
         </div>
 
         <div className="mt-10 pt-6 border-t border-mc-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-mc-muted">
-          <p>© {year} DevBrezz. All rights reserved.</p>
+          <p>© {year} KingBrezz. All rights reserved.</p>
           <p>Resources auto-synced from SpigotMC & Modrinth.</p>
         </div>
       </div>
