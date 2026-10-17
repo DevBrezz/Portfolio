@@ -41,7 +41,7 @@ export function Home() {
             </h1>
 
             <p className="mt-5 text-lg text-mc-muted max-w-xl leading-relaxed">
-              I’m <strong className="text-mc-white">KingBrezz</strong> — also known as ItsMe Brezz. I build practical Minecraft server software, from gameplay systems and economy tools to protection, automation, and performance-focused plugins.
+              I’m <strong className="text-mc-white">DevBrezz</strong> — also known as DevBrezz. I build practical Minecraft server software, from gameplay systems and economy tools to protection, automation, and performance-focused plugins.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -52,7 +52,7 @@ export function Home() {
                 Browse Projects <ArrowRight className="w-4 h-4" />
               </Link>
               <a
-                href="https://modrinth.com/user/KingBrezz"
+                href="https://modrinth.com/user/DevBrezz"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-mc-surface border border-mc-border text-mc-text font-medium text-sm hover:border-mc-red/50 transition-colors"

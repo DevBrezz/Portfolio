@@ -5,7 +5,7 @@ import { copyToClipboard } from '../lib/utils';
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
-  const discord = '@Brezzz';
+  const discord = 'DevBrezz';
 
   const handleCopy = async () => {
     const ok = await copyToClipboard(discord);
@@ -41,7 +41,7 @@ export function Contact() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <a
-              href="https://modrinth.com/user/KingBrezz"
+              href="https://modrinth.com/user/DevBrezz"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-mc-surface border border-mc-border rounded-xl p-5 hover:border-mc-red/50 transition-colors group"
@@ -49,7 +49,7 @@ export function Contact() {
               <h3 className="font-semibold text-mc-white group-hover:text-mc-red transition-colors flex items-center gap-2">
                 Modrinth <ExternalLink className="w-3.5 h-3.5" />
               </h3>
-              <p className="text-sm text-mc-muted mt-1">modrinth.com/user/KingBrezz</p>
+              <p className="text-sm text-mc-muted mt-1">modrinth.com/user/DevBrezz</p>
             </a>
             <a
               href="https://www.spigotmc.org/resources/authors/brezz.2530124/"
