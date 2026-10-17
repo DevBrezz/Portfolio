@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Languages } from 'lucide-react';
-import { useLanguage, type Language } from '../lib/i18n';
+import { Menu, X, Languages, ChevronDown } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const links = [
@@ -15,8 +14,11 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [language, setLanguage] = useState('en');
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const languages = [{ code: 'en', flag: '🇬🇧', label: 'English' }, { code: 'id', flag: '🇮🇩', label: 'Indonesia' }, { code: 'zh', flag: '🇨🇳', label: '中文' }, { code: 'nl', flag: '🇳🇱', label: 'Nederlands' }];
+  const selectedLanguage = languages.find((item) => item.code === language) ?? languages[0];
   const location = useLocation();
-  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -45,16 +47,19 @@ export function Navbar() {
               'px-4 py-2 rounded-md text-sm font-medium transition-colors relative',
               location.pathname === l.to ? 'text-mc-white' : 'text-mc-muted hover:text-mc-white'
             )}>
-              {l.to === '/' ? t.home : l.to === '/projects' ? t.projects : l.to === '/about' ? t.about : t.contact}
+              {l.label}
               {location.pathname === l.to && (
                 <motion.div layoutId="nav-indicator" className="absolute bottom-0 left-2 right-2 h-0.5 bg-mc-red rounded-full"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
               )}
             </Link>
           ))}
+          <div className="language-menu-wrap">
+            <button type="button" className="language-trigger" onClick={() => setLanguageOpen(!languageOpen)} aria-expanded={languageOpen} aria-label="Choose language"><Languages size={15}/><span>{selectedLanguage.flag}</span><span>{selectedLanguage.code.toUpperCase()}</span><ChevronDown size={13}/></button>
+            {languageOpen && <div className="language-dropdown">{languages.map((item) => <button type="button" key={item.code} className={item.code === language ? 'language-option is-selected' : 'language-option'} onClick={() => { setLanguage(item.code); setLanguageOpen(false); }}><span>{item.flag}</span><span>{item.label}</span>{item.code === language && <span className="language-check">✓</span>}</button>)}<p>Language preference</p></div>}
+          </div>
         </div>
 
-        <label className="language-picker" aria-label="Choose language"><Languages size={15} /><select value={language} onChange={(e) => setLanguage(e.target.value as Language)} aria-label="Language"><option value="en">🇬🇧 English</option><option value="id">🇮🇩 Indonesia</option><option value="zh">🇨🇳 中文</option><option value="nl">🇳🇱 Nederlands</option></select></label>
         <button className="md:hidden p-2 text-mc-muted hover:text-mc-white" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -65,11 +70,12 @@ export function Navbar() {
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-mc-dark border-b border-mc-border overflow-hidden">
             <div className="px-4 py-3 flex flex-col gap-1">
+              <div className="mobile-language-row"><span><Languages size={15}/> Language</span><select aria-label="Choose language" value={language} onChange={(event) => setLanguage(event.target.value)}>{languages.map((item) => <option key={item.code} value={item.code}>{item.flag} {item.label}</option>)}</select></div>
               {links.map((l) => (
                 <Link key={l.to} to={l.to} className={cn(
                   'px-4 py-3 rounded-md text-sm font-medium',
                   location.pathname === l.to ? 'bg-mc-surface text-mc-white' : 'text-mc-muted hover:bg-mc-surface hover:text-mc-white'
-                )}>{l.to === '/' ? t.home : l.to === '/projects' ? t.projects : l.to === '/about' ? t.about : t.contact}</Link>
+                )}>{l.label}</Link>
               ))}
             </div>
           </motion.div>
