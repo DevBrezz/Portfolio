@@ -9,28 +9,43 @@ import { Contact } from './pages/Contact';
 import { Donate } from './pages/Donate';
 import { BootScreen } from './components/BootScreen';
 import { useEffect, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { KingBrezzAssistant } from './components/KingBrezzAssistant';
 import { Report } from './pages/Report';
 import { LanguageProvider } from './lib/i18n';
 
 export default function App() {
+  const [showBootScreen, setShowBootScreen] = useState(true);
+
+  useEffect(() => {
+    // Keep the intro short and always release it, even if reduced motion is enabled.
+    const timeoutId = window.setTimeout(() => setShowBootScreen(false), 4000);
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
   return (
-    <LanguageProvider><BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-mc-black text-mc-text">
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/project/:id" element={<ProjectDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/donate" element={<Donate />} />
-            <Route path="/report" element={<Report />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter></LanguageProvider>
+    <LanguageProvider>
+      <BrowserRouter>
+        <div className="min-h-screen flex flex-col bg-mc-black text-mc-text">
+          <Navbar />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/project/:id" element={<ProjectDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/donate" element={<Donate />} />
+              <Route path="/report" element={<Report />} />
+              <Route path="/assistant" element={<KingBrezzAssistant page />} />
+              <Route path="*" element={<Home />} />
+            </Routes>
+          </main>
+          <Footer />
+          <KingBrezzAssistant />
+          <AnimatePresence>{showBootScreen && <BootScreen key="kingbrezz-boot-screen" />}</AnimatePresence>
+        </div>
+      </BrowserRouter>
+    </LanguageProvider>
   );
 }
