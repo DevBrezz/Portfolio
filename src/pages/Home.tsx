@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ExternalLink, Code2, Server, Shield, Zap, Package } from 'lucide-react';
 import { useResources } from '../hooks/useResources';
 import { ProjectCard } from '../components/ProjectCard';
+import { BStatsSection } from '../components/BStatsSection';
 
 export function Home() {
   const { resources, loading, data } = useResources();
@@ -31,19 +32,17 @@ export function Home() {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-mc-surface border border-mc-border text-xs text-mc-muted mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-mc-grass animate-pulse" />
-              Minecraft Plugin Developer
+              <span className="status-pulse" />
+              INDEPENDENT DEVELOPER · MINECRAFT ECOSYSTEM
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-mc-white leading-tight tracking-tight max-w-3xl">
+            <h1 className="hero-title text-4xl sm:text-5xl md:text-7xl font-bold text-mc-white leading-tight tracking-tight max-w-4xl">
               Building powerful tools for{' '}
-              <span className="text-mc-red">Minecraft</span> servers
+              <span className="hero-gradient">Minecraft</span> servers
             </h1>
 
             <p className="mt-5 text-lg text-mc-muted max-w-xl leading-relaxed">
-              Hi, I'm <strong className="text-mc-white">KingBrezz</strong> (ItsMe Brezz).
-              I create high-quality plugins, anti-cheat, economy systems, and server utilities
-              for Paper, Purpur, Folia, and Spigot.
+              I’m <strong className="text-mc-white">KingBrezz</strong> — also known as ItsMe Brezz. I build practical Minecraft server software, from gameplay systems and economy tools to protection, automation, and performance-focused plugins.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
@@ -96,6 +95,8 @@ export function Home() {
       </section>
 
       {/* Featured */}
+      <BStatsSection />
+
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <div className="flex items-end justify-between mb-8">
           <div>
@@ -149,7 +150,7 @@ export function Home() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
         <h2 className="text-2xl font-bold text-mc-white mb-6">Technology Stack</h2>
         <div className="flex flex-wrap gap-2">
-          {['Java', 'Paper API', 'Spigot API', 'Folia', 'Purpur', 'Vault', 'PlaceholderAPI', 'MySQL', 'Redis', 'Discord Bot', 'Bedrock / Geyser'].map((t) => (
+          {['Java', 'Paper', 'Spigot', 'Purpur', 'Folia', 'PlaceholderAPI', 'Vault', 'SQLite / MySQL', 'ProtocolLib', 'Geyser / Floodgate'].map((t) => (
             <span key={t} className="px-3 py-1.5 rounded-lg bg-mc-surface border border-mc-border text-sm text-mc-text">
               {t}
             </span>

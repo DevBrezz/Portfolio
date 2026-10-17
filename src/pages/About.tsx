@@ -1,46 +1,36 @@
 import { motion } from 'framer-motion';
-import { Code2, Server, Shield, Wrench } from 'lucide-react';
+import { Code2, Server, Shield, Wrench, Target, Boxes, HeartHandshake, ArrowUpRight } from 'lucide-react';
 
 export function About() {
-  return (
-    <div className="pt-24 pb-16 min-h-screen mc-grid-bg">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-3xl font-bold text-mc-white mb-2">About KingBrezz</h1>
-          <p className="text-mc-muted mb-10">Minecraft developer • Plugins • Server tools • Java & Bedrock</p>
-
-          <div className="prose prose-invert max-w-none space-y-6 text-mc-text leading-relaxed">
-            <p>
-              I'm <strong className="text-mc-white">KingBrezz</strong> (also known as ItsMe Brezz), a Minecraft developer focused on
-              high-quality server plugins, anti-cheat systems, economy tools, land protection, and performance utilities.
-            </p>
-            <p>
-              My work targets modern Paper, Purpur, Folia, and Spigot servers. I publish on both
-              <a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noopener noreferrer" className="text-mc-red hover:underline"> Modrinth</a> and
-              <a href="https://www.spigotmc.org/resources/authors/brezz.2530124/" target="_blank" rel="noopener noreferrer" className="text-mc-red hover:underline"> SpigotMC</a>.
-            </p>
-            <p>
-              Projects range from complete SMP experiences and land claim systems to specialized anti-dupe, anti-freecam,
-              restart schedulers, clear-lag solutions, shops, auctions, and custom enchantments.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
-            {[
-              { icon: Code2, title: 'Plugin Development', desc: 'Java plugins for Paper / Spigot / Folia with clean APIs and configs.' },
-              { icon: Server, title: 'Server Tools', desc: 'Economy, claims, shops, auctions, jobs, and full SMP feature sets.' },
-              { icon: Shield, title: 'Security & Anti-Cheat', desc: 'Anti-dupe, anti-freecam, anti-bot, anti-VPN, and detection systems.' },
-              { icon: Wrench, title: 'Performance', desc: 'ClearLag, AntiLag, redstone detectors, and optimization utilities.' },
-            ].map((item) => (
-              <div key={item.title} className="bg-mc-surface border border-mc-border rounded-xl p-5">
-                <item.icon className="w-6 h-6 text-mc-red mb-3" />
-                <h3 className="font-semibold text-mc-white mb-1">{item.title}</h3>
-                <p className="text-sm text-mc-muted">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
+  const principles = [
+    { icon: Target, title: 'Purpose before features', desc: 'Every feature should solve a real server-owner or player problem, not just inflate a changelog.' },
+    { icon: Boxes, title: 'Built for real servers', desc: 'Configuration, compatibility, data safety, and clear failure states matter as much as the happy path.' },
+    { icon: Shield, title: 'Security-minded design', desc: 'Protection systems focus on predictable behavior, careful validation, and minimizing false positives.' },
+    { icon: HeartHandshake, title: 'Clear communication', desc: 'Release notes and support should be honest about what passed, what is untested, and what is unsupported.' },
+  ];
+  const focus = [
+    { icon: Code2, title: 'Plugin engineering', desc: 'Java plugins for Paper, Spigot, Purpur, and Folia with configurable behavior and maintainable code.' },
+    { icon: Server, title: 'SMP systems', desc: 'Economy, claims, custom enchantments, utilities, automation, and gameplay features.' },
+    { icon: Shield, title: 'Server protection', desc: 'Anti-dupe, anti-freecam, detection, and abuse-prevention tools designed for multiplayer environments.' },
+    { icon: Wrench, title: 'Operations & performance', desc: 'Monitoring, cleanup, restart workflows, compatibility testing, and practical diagnostics.' },
+  ];
+  return <div className="pt-24 pb-20 min-h-screen mc-grid-bg">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <motion.section initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} className="about-hero">
+        <div className="eyebrow">THE PERSON BEHIND THE PLUGINS</div>
+        <h1 className="section-heading about-title">I build tools that make<br className="hidden sm:block" /> Minecraft servers <span>better.</span></h1>
+        <p className="about-lead">I’m <strong>KingBrezz</strong> (also known as ItsMe Brezz), an independent developer focused on Minecraft server plugins and the systems around them. My work sits at the intersection of gameplay, reliability, protection, and server administration.</p>
+        <div className="flex flex-wrap gap-3 mt-7">
+          <a className="profile-link" href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer">Modrinth <ArrowUpRight size={15}/></a>
+          <a className="profile-link" href="https://www.spigotmc.org/resources/authors/brezz.2530124/" target="_blank" rel="noreferrer">SpigotMC <ArrowUpRight size={15}/></a>
+        </div>
+      </motion.section>
+      <motion.section initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="about-story mt-12">
+        <div><div className="eyebrow">MY APPROACH</div><h2 className="text-2xl font-bold text-mc-white mt-3">Useful software, not just more software.</h2></div>
+        <div className="about-copy"><p>I work across the full plugin lifecycle: shaping an idea, implementing it, testing compatibility, documenting configuration, and preparing releases that server owners can actually operate.</p><p>I care about the details that often get overlooked — sensible defaults, safe data handling, clear messages, predictable performance, and being transparent about testing status. A feature is only useful when it behaves correctly in a live server environment.</p></div>
+      </motion.section>
+      <section className="mt-16"><div className="eyebrow">AREAS OF WORK</div><h2 className="text-2xl font-bold text-mc-white mt-2 mb-6">What I work on</h2><div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{focus.map((item, i) => <motion.article key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .06 }} className="about-card"><item.icon className="w-5 h-5 text-mc-red mb-4"/><h3>{item.title}</h3><p>{item.desc}</p></motion.article>)}</div></section>
+      <section className="mt-16"><div className="eyebrow">ENGINEERING PRINCIPLES</div><h2 className="text-2xl font-bold text-mc-white mt-2 mb-6">What matters to me</h2><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">{principles.map((item, i) => <motion.article key={item.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .05 }} className="principle-card"><item.icon className="w-5 h-5 text-mc-red mb-3"/><h3>{item.title}</h3><p>{item.desc}</p></motion.article>)}</div></section>
     </div>
-  );
+  </div>;
 }
