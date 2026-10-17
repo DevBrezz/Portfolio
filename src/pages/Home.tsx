@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ShieldCheck, Code2, UserRound, Boxes, Handshake, ChevronRight } from 'lucide-react';
+import { ArrowRight, ShieldCheck, UserRound, Boxes, Handshake, ChevronRight, Sparkles } from 'lucide-react';
 import { useResources } from '../hooks/useResources';
 import { ProjectCard } from '../components/ProjectCard';
 
@@ -16,14 +17,20 @@ const paths = [
 
 export function Home() {
   const { resources, loading } = useResources();
+  const [xp, setXp] = useState(0);
+  const [secretOpen, setSecretOpen] = useState(false);
+  const earnXp = () => { setXp((current) => { const next = Math.min(100, current + 10); if (next === 100) setSecretOpen(true); return next; }); };
   const featured = resources.filter((r) => r.platform === 'modrinth' && r.featured && !r.hidden);
   const projects = (featured.length ? featured : resources.filter((r) => r.platform === 'modrinth' && !r.hidden))
     .slice(0, 10);
 
   return <div className="mc-grid-bg home-shell">
     <section className="home-hero relative overflow-hidden">
+      <div className="cosmic-backdrop" aria-hidden="true"><div className="cosmic-nebula cosmic-nebula-a"/><div className="cosmic-nebula cosmic-nebula-b"/><div className="cosmic-stars cosmic-stars-one"/><div className="cosmic-stars cosmic-stars-two"/><div className="cosmic-stars cosmic-stars-three"/></div>
       <div className="hero-ambient hero-ambient-one"/><div className="hero-ambient hero-ambient-two"/>
-      <div className="hero-code-float" aria-hidden="true"><span>public final class</span><br/><b>KingBrezz</b> {'{'}<br/><span>  build();</span><br/>{'}'}</div>
+      <div className="hero-code-float" aria-hidden="true"><span>public final class</span><br/><b>KingBrezz</b> {'{'}<br/><span>  validate();</span><br/><span>  optimize();</span><br/><span>  build();</span><br/>{'}'}</div>
+      <div className="hero-code-float hero-code-float-two" aria-hidden="true"><span>// system online</span><br/><b>if (idea != null)</b><br/><span>  ship(idea);</span><br/><span>  // no fake stats</span></div>
+      <div className="solar-system" aria-label="Animated solar system illustration" role="img"><div className="solar-orbit solar-orbit-outer"><i className="solar-planet planet-blue"/></div><div className="solar-orbit solar-orbit-mid"><i className="solar-planet planet-green"/></div><div className="solar-orbit solar-orbit-inner"><i className="solar-planet planet-red"/></div><div className="solar-sun"><span/></div><div className="solar-label solar-label-one">ORBITAL / 03</div><div className="solar-label solar-label-two">SYSTEM ONLINE</div></div>
       <motion.div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-32" initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
         <div className="eyebrow"><span className="status-pulse"/> INDEPENDENT DEVELOPER · MINECRAFT ECOSYSTEM</div>
         <h1 className="hero-title home-title">Ideas into tools.<br/><span className="hero-gradient">Better Minecraft worlds.</span></h1>
@@ -32,6 +39,12 @@ export function Home() {
           <Link to="/projects" className="home-primary">Explore my plugins <ArrowRight size={17}/></Link>
           <a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer" className="home-secondary"><ModrinthMark/> Find me on Modrinth</a>
         </div>
+        <button type="button" className="xp-console mt-7" onClick={earnXp} aria-label={`Earn XP, current progress ${xp} percent`}>
+          <div className="xp-console-top"><span><Sparkles size={13}/> EXPLORER XP</span><strong>LVL {Math.floor(xp / 25) + 1} <i>{xp}/100 XP</i></strong></div>
+          <div className="xp-track"><span style={{ width: `${xp}%` }}/></div>
+          <div className="xp-console-bottom"><span>{xp === 0 ? 'Tap to collect discovery XP' : xp < 100 ? 'Keep exploring to unlock a secret' : 'Secret unlocked · Nice work!'}</span><span>{xp}%</span></div>
+        </button>
+        {secretOpen && <motion.div className="xp-secret" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}><Sparkles size={16}/><div><strong>Hidden signal discovered.</strong><p>Good developers stay curious. Keep building, testing, and improving.</p></div><button type="button" onClick={() => setSecretOpen(false)} aria-label="Close secret">×</button></motion.div>}
         <div className="home-shield-panel mt-12">
           <div className="shield-emblem"><ShieldCheck size={31}/><span/></div>
           <div><div className="shield-kicker">SECURITY-MINDED DEVELOPMENT</div><h2>Built with safety in mind.</h2><p>I prioritize validation, predictable behavior, and careful data handling. Each release should be tested for its intended environment — no software can honestly be guaranteed 100% bug-free or risk-free.</p></div>
