@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://devbrezz.github.io/Portfolio/sitemap.xml
