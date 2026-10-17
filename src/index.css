@@ -228,3 +228,56 @@ a:hover .brand-logo { transform: rotate(-4deg) scale(1.05); box-shadow: 0 0 32px
 @media (max-width:800px) { .solar-system { top:76px; right:-48px; width:255px; opacity:.42; }.hero-code-float-two { display:none; }.cosmic-nebula { opacity:.08; }.xp-console { max-width:360px; } }
 @media (max-width:520px) { .solar-system { top:76px; right:-86px; width:230px; opacity:.28; }.solar-label { display:none; }.hero-code-float { display:none; }.home-hero > .relative { padding-top:7.5rem; }.xp-console { width:100%; } }
 @media (prefers-reduced-motion: reduce) { .cosmic-stars,.solar-sun,.solar-orbit,.hero-code-float-two { animation:none!important; } }
+
+/* Contact page: slow, lightweight galaxy layers (CSS only; no canvas or particle loop). */
+.contact-galaxy {
+  isolation: isolate;
+  background: radial-gradient(ellipse at 50% -10%, rgba(75, 83, 180, .22), transparent 43%),
+    radial-gradient(ellipse at 8% 50%, rgba(37, 83, 155, .13), transparent 38%),
+    radial-gradient(ellipse at 92% 68%, rgba(104, 46, 151, .12), transparent 36%), #050711;
+}
+.contact-stars { position:absolute; inset:-8%; pointer-events:none; background-repeat:repeat; will-change:background-position; }
+.contact-stars-a { opacity:.48; background-image:radial-gradient(1px 1px at 24px 38px,rgba(255,255,255,.9) 50%,transparent 100%),radial-gradient(1px 1px at 126px 142px,rgba(164,196,255,.9) 50%,transparent 100%),radial-gradient(2px 2px at 214px 74px,rgba(255,255,255,.7) 50%,transparent 100%); background-size:260px 190px; animation:contact-star-drift 100s linear infinite; }
+.contact-stars-b { opacity:.28; background-image:radial-gradient(1px 1px at 45px 86px,rgba(255,255,255,.85) 50%,transparent 100%),radial-gradient(1px 1px at 176px 28px,rgba(155,177,255,.8) 50%,transparent 100%),radial-gradient(1.5px 1.5px at 232px 154px,rgba(255,255,255,.75) 50%,transparent 100%); background-size:310px 220px; animation:contact-star-drift 150s linear infinite reverse; }
+.contact-nebula { position:absolute; pointer-events:none; width:min(70vw,760px); aspect-ratio:1; border-radius:50%; filter:blur(70px); opacity:.12; transform:translate3d(0,0,0); }
+.contact-nebula-one { top:8%; left:-22%; background:radial-gradient(circle,rgba(71,114,255,.75),rgba(80,70,180,.2) 38%,transparent 70%); animation:contact-nebula-float 38s ease-in-out infinite alternate; }
+.contact-nebula-two { top:34%; right:-24%; background:radial-gradient(circle,rgba(139,73,255,.7),rgba(49,100,210,.18) 42%,transparent 72%); animation:contact-nebula-float 46s ease-in-out infinite alternate-reverse; }
+.contact-orbit { position:absolute; left:50%; top:30%; width:min(92vw,1000px); height:260px; border:1px solid rgba(139,164,255,.08); border-radius:50%; transform:translate(-50%,-50%) rotate(-14deg); pointer-events:none; }
+.contact-orbit-two { width:min(74vw,760px); height:190px; transform:translate(-50%,-50%) rotate(17deg); border-color:rgba(139,164,255,.055); }
+.contact-eyebrow { color:#c8d5ff; background:rgba(106,128,230,.09); border:1px solid rgba(151,170,255,.18); backdrop-filter:blur(10px); }
+.contact-status-dot { display:inline-block; width:7px; height:7px; flex:none; border-radius:50%; background:#8b9eff; box-shadow:0 0 12px rgba(139,158,255,.85); }
+.contact-heading { color:#fff; text-shadow:0 0 36px rgba(105,128,255,.15); }
+.contact-heading span { display:block; background:linear-gradient(100deg,#fff 5%,#b7c6ff 42%,#b6a1ff 76%,#e3d8ff); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.discord-hero { position:relative; overflow:hidden; color:white; border:1px solid rgba(160,174,255,.22); background:linear-gradient(115deg,rgba(28,35,78,.93),rgba(16,21,47,.95) 54%,rgba(37,24,73,.91)); box-shadow:0 26px 90px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.07); transition:border-color .3s ease,box-shadow .3s ease; }
+.discord-hero::before { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(110deg,transparent 20%,rgba(180,194,255,.08) 48%,transparent 70%); transform:translateX(-110%); transition:transform .85s ease; }
+.discord-hero:hover { border-color:rgba(167,180,255,.52); box-shadow:0 32px 100px rgba(16,18,65,.42),0 0 34px rgba(95,112,230,.12),inset 0 1px rgba(255,255,255,.1); }
+.discord-hero:hover::before { transform:translateX(110%); }
+.discord-hero-grid { position:relative; display:grid; grid-template-columns:minmax(200px,.85fr) minmax(0,1.5fr); align-items:center; gap:clamp(1.5rem,4vw,3.5rem); }
+.discord-logo-panel { min-height:170px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; border-radius:1.35rem; border:1px solid rgba(255,255,255,.11); background:radial-gradient(ellipse at 50% 35%,rgba(88,101,242,.25),transparent 68%),rgba(4,7,20,.32); padding:24px 16px; }
+.discord-wordmark { display:block; width:min(100%,300px); height:auto; max-height:105px; object-fit:contain; filter:drop-shadow(0 8px 24px rgba(88,101,242,.18)); }
+.discord-logo-caption { color:#b7c3ff; font-size:10px; font-weight:800; letter-spacing:.25em; }
+.discord-wordmark-fallback { display:flex; align-items:center; gap:12px; color:#fff; font-size:2rem; font-weight:900; }
+.discord-hero-copy { position:relative; z-index:1; }
+.discord-pill { display:inline-flex; align-items:center; gap:8px; border-radius:999px; border:1px solid rgba(151,166,255,.25); background:rgba(106,124,255,.12); padding:7px 11px; color:#dce2ff; font-size:11px; font-weight:700; }
+.discord-pill-muted { color:#c4c8db; border-color:rgba(255,255,255,.09); background:rgba(255,255,255,.045); }
+.discord-join-cta { color:white; background:#5865f2; box-shadow:0 8px 26px rgba(88,101,242,.28); transition:background .2s ease,box-shadow .2s ease; }
+.discord-hero:hover .discord-join-cta { background:#6975ff; box-shadow:0 10px 32px rgba(88,101,242,.4); }
+.discord-hero-orb { position:absolute; right:7%; top:8%; display:grid; place-items:center; width:72px; height:72px; border-radius:50%; color:rgba(190,199,255,.7); border:1px solid rgba(165,178,255,.13); background:rgba(117,130,255,.055); animation:contact-orb-float 7s ease-in-out infinite; }
+.discord-card-footer { position:relative; display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:26px; padding-top:17px; border-top:1px solid rgba(255,255,255,.1); color:#aeb9e5; font-size:12px; }
+.discord-card-footer span:last-child { display:inline-flex; align-items:center; gap:6px; color:#d6dcf8; }
+.contact-info-card { position:relative; display:flex; flex-direction:column; min-width:0; padding:23px; border-radius:1.35rem; border:1px solid rgba(158,174,255,.14); background:linear-gradient(145deg,rgba(24,29,57,.74),rgba(10,13,29,.82)); box-shadow:inset 0 1px rgba(255,255,255,.035); backdrop-filter:blur(12px); transition:transform .25s ease,border-color .25s ease,background .25s ease; }
+.contact-info-card h3 { margin-top:17px; color:#fff; font-size:17px; font-weight:800; }
+.contact-info-card p { margin-top:8px; color:#aeb7d1; font-size:13px; line-height:1.65; }
+.contact-link-card:hover { transform:translateY(-4px); border-color:rgba(155,171,255,.36); background:linear-gradient(145deg,rgba(31,38,74,.86),rgba(12,15,34,.9)); }
+.contact-info-icon { display:grid; place-items:center; width:42px; height:42px; border-radius:13px; color:#cbd4ff; background:rgba(111,131,255,.14); border:1px solid rgba(153,169,255,.17); }
+.contact-icon-green { color:#a8f2d0; background:rgba(50,180,120,.1); border-color:rgba(90,220,160,.14); }
+.contact-icon-blue { color:#a8c8ff; background:rgba(61,131,245,.12); border-color:rgba(105,166,255,.16); }
+.contact-copy-btn { display:inline-flex; align-items:center; gap:6px; flex:none; border-radius:9px; padding:8px 10px; color:#e7eaff; background:rgba(115,131,255,.14); border:1px solid rgba(158,171,255,.18); font-size:12px; font-weight:700; transition:background .2s ease; }
+.contact-copy-btn:hover { background:rgba(115,131,255,.25); }
+.contact-card-link { display:inline-flex; align-items:center; gap:6px; margin-top:auto; padding-top:19px; color:#c5ceff; font-size:12px; font-weight:700; }
+.contact-bottom-note { color:#8e9ab9; }
+@keyframes contact-star-drift { from { background-position:0 0; } to { background-position:260px 190px; } }
+@keyframes contact-nebula-float { from { transform:translate3d(-2%,0,0) scale(.96); } to { transform:translate3d(4%,3%,0) scale(1.04); } }
+@keyframes contact-orb-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-9px); } }
+@media (max-width:700px) { .contact-orbit { top:19%; } .discord-hero-grid { grid-template-columns:1fr; gap:22px; } .discord-logo-panel { min-height:135px; } .discord-wordmark { width:min(80%,280px); max-height:78px; } .discord-hero-orb { width:50px; height:50px; right:6%; top:4%; } .discord-hero-orb svg { width:23px; } .discord-card-footer { align-items:flex-start; flex-direction:column; margin-top:20px; } .contact-nebula { filter:blur(48px); opacity:.1; } }
+@media (prefers-reduced-motion:reduce) { .contact-stars-a,.contact-stars-b,.contact-nebula,.discord-hero-orb { animation:none !important; } .discord-hero,.discord-hero::before,.contact-info-card,.discord-join-cta { transition:none !important; } }
