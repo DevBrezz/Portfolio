@@ -410,3 +410,14 @@ a:hover .brand-logo { transform: rotate(-4deg) scale(1.05); box-shadow: 0 0 32px
 @media(min-width:1200px){.home-stats-wrap{margin-top:-24px;margin-bottom:34px}.home-stats-grid{gap:16px}.home-stat-card{min-height:132px;padding:20px}.home-stats-heading p{flex-basis:auto;margin:0 0 0 auto}.home-hero .max-w-6xl{padding-top:7rem;padding-bottom:6.5rem}}
 @media(max-width:640px){.home-stats-grid{grid-template-columns:1fr;gap:8px}.home-stat-card{min-height:92px;padding:13px 15px}.home-stat-card strong{font-size:1.3rem}.home-stats-heading{gap:8px}.home-donate-float{right:12px;bottom:14px;padding:7px 11px 7px 7px;gap:8px}.donate-float-heart{width:29px;height:29px;flex-basis:29px}.home-donate-float small{font-size:9px}.donate-page{padding:88px 14px 38px}.donate-hero{grid-template-columns:1fr;padding:24px 20px;gap:0}.donate-coin-stage{min-height:205px;grid-row:1}.gold-coin{width:125px;height:125px}.coin-mark{font-size:58px}.coin-halo{width:180px;height:180px}.donate-grid{grid-template-columns:1fr}.donate-qr-card,.donate-benefits{padding:19px}.donate-qr-link{max-width:250px}}
 @media(prefers-reduced-motion:reduce){.stat-sparkline,.coin-halo,.coin-shadow,.home-donate-float{animation:none!important}.home-donate-float,.gold-coin{transition:none!important}}
+
+
+/* Home hero tagline rotation and centered safety panel */
+.home-rotating-title { min-height: 2.45em; display: flex; align-items: center; justify-content: center; }
+.home-tagline-pair { display: inline-block; }
+.home-shield-panel-centered { margin-left: auto; margin-right: auto; grid-template-columns: 1fr; justify-items: center; text-align: center; }
+.home-shield-panel-centered .shield-emblem { margin: 0 auto; }
+.home-shield-panel-centered .home-shield-copy, .home-shield-panel-centered > div:nth-child(2) { display: flex; flex-direction: column; align-items: center; }
+.home-shield-panel-centered p { margin-left: auto; margin-right: auto; }
+.home-shield-panel-centered .shield-more { margin-top: 2px; }
+@media (prefers-reduced-motion: reduce) { .home-tagline-pair { animation: none !important; } }
