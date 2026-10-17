@@ -9,5 +9,26 @@ const dictionaries = {
 };
 type Dict = typeof dictionaries.en;
 const LanguageContext = createContext<{language:Language; setLanguage:(l:Language)=>void; t:Dict}>({language:'en',setLanguage:()=>{},t:dictionaries.en});
-export function LanguageProvider({children}:{children:ReactNode}) { const [language,setLanguageState] = useState<Language>(() => { try { const v=localStorage.getItem('kingbrezz-language'); return v==='id'||v==='zh'||v==='nl'?v:'en'; } catch { return 'en'; }}); const setLanguage=(l:Language)=>{setLanguageState(l);try{localStorage.setItem('kingbrezz-language',l)}catch{}}; useEffect(()=>{translateDocument(language); const observer=new MutationObserver(()=>translateDocument(language)); observer.observe(document.body,{subtree:true,childList:true,characterData:true}); return ()=>observer.disconnect();},[language]); const value=useMemo(()=>({language,setLanguage,t:dictionaries[language]}),[language]); return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>; }
+export function LanguageProvider({children}:{children:ReactNode}) {
+  const [language,setLanguageState] = useState<Language>(() => {
+    try {
+      const v=localStorage.getItem('kingbrezz-language');
+      return v==='id'||v==='zh'||v==='nl'?v:'en';
+    } catch { return 'en'; }
+  });
+  const setLanguage=(l:Language)=>{
+    setLanguageState(l);
+    try { localStorage.setItem('kingbrezz-language',l); } catch { /* Storage can be disabled. */ }
+  };
+  useEffect(()=>{
+    translateDocument(language);
+    // Watch for React-created UI, but not text/attribute edits made by the translator.
+    // Observing characterData here caused repeated translation passes and could freeze the page.
+    const observer = new MutationObserver(() => translateDocument(language));
+    observer.observe(document.body,{subtree:true,childList:true});
+    return ()=>observer.disconnect();
+  },[language]);
+  const value=useMemo(()=>({language,setLanguage,t:dictionaries[language]}),[language]);
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
+}
 export function useLanguage(){return useContext(LanguageContext)}
