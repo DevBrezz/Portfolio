@@ -122,6 +122,5 @@ export function Home() {
       {loading ? <div className="project-rail">{Array.from({length:4}).map((_,i)=><div key={i} className="skeleton h-64 rounded-xl project-rail-card"/>)}</div> : projects.length ? <div className="project-rail" aria-label="Featured Modrinth projects">{projects.map((r,i)=><div className="project-rail-card" key={r.id}><ProjectCard resource={r} index={i}/></div>)}</div> : <div className="empty-modrinth"><ModrinthMark className="w-8 h-8"/><p>No Modrinth projects are available in the local catalogue yet.</p><a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer">Open KingBrezz on Modrinth <ArrowRight size={15}/></a></div>}
       <div className="rail-hint"><span/> Swipe or scroll sideways to browse <span/></div>
     </section>
-    <Link to="/donate" className="home-donate-float" aria-label={t.donate}><span className="donate-float-heart"><Heart size={16} fill="currentColor"/></span><span className="donate-float-copy"><strong>{t.donateShort}</strong><small>Support KingBrezz</small></span><span className="donate-float-arrow" aria-hidden="true">↗</span></Link>
   </div>;
 }
