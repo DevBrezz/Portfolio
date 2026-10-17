@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Languages } from 'lucide-react';
+import { useLanguage, type Language } from '../lib/i18n';
 import { cn } from '../lib/utils';
 
 const links = [
   { to: '/', label: 'Home' },
   { to: '/projects', label: 'Projects' },
-  { to: '/about', label: 'Who is KingBrezz?' },
+  { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ];
 
@@ -15,6 +16,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -33,7 +35,7 @@ export function Navbar() {
         <Link to="/" className="flex items-center gap-2 group">
           <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="brand-logo" />
           <span className="font-semibold text-mc-white tracking-tight">
-            Dev<span className="text-mc-red">Brezz</span>
+            King<span className="text-mc-red">Brezz</span>
           </span>
         </Link>
 
@@ -43,7 +45,7 @@ export function Navbar() {
               'px-4 py-2 rounded-md text-sm font-medium transition-colors relative',
               location.pathname === l.to ? 'text-mc-white' : 'text-mc-muted hover:text-mc-white'
             )}>
-              {l.label}
+              {l.to === '/' ? t.home : l.to === '/projects' ? t.projects : l.to === '/about' ? t.about : t.contact}
               {location.pathname === l.to && (
                 <motion.div layoutId="nav-indicator" className="absolute bottom-0 left-2 right-2 h-0.5 bg-mc-red rounded-full"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
@@ -52,6 +54,7 @@ export function Navbar() {
           ))}
         </div>
 
+        <label className="language-picker" aria-label="Choose language"><Languages size={15} /><select value={language} onChange={(e) => setLanguage(e.target.value as Language)} aria-label="Language"><option value="en">🇬🇧 English</option><option value="id">🇮🇩 Indonesia</option><option value="zh">🇨🇳 中文</option><option value="nl">🇳🇱 Nederlands</option></select></label>
         <button className="md:hidden p-2 text-mc-muted hover:text-mc-white" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -66,7 +69,7 @@ export function Navbar() {
                 <Link key={l.to} to={l.to} className={cn(
                   'px-4 py-3 rounded-md text-sm font-medium',
                   location.pathname === l.to ? 'bg-mc-surface text-mc-white' : 'text-mc-muted hover:bg-mc-surface hover:text-mc-white'
-                )}>{l.label}</Link>
+                )}>{l.to === '/' ? t.home : l.to === '/projects' ? t.projects : l.to === '/about' ? t.about : t.contact}</Link>
               ))}
             </div>
           </motion.div>

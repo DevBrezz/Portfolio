@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ExternalLink, Download, Package, Code2 } from 'lucide-react';
+import { useLanguage } from '../lib/i18n';
 import type { Resource } from '../types/resource';
 import { formatNumber, formatDate, cn } from '../lib/utils';
 
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function ProjectCard({ resource, index = 0 }: Props) {
+  const { t } = useLanguage();
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -72,16 +74,16 @@ export function ProjectCard({ resource, index = 0 }: Props) {
         </div>
       </Link>
 
-      <a
+      <div className="project-card-actions"><a href={resource.downloadUrl || resource.url} target="_blank" rel="noopener noreferrer" className="project-download" aria-label={`${t.download} ${resource.title}`}><Download size={14}/><span>{t.download}</span></a><a
         href={resource.url}
         target="_blank"
         rel="noopener noreferrer"
         className="absolute top-3 right-3 p-1.5 rounded-md bg-mc-black/70 text-mc-muted opacity-0 group-hover:opacity-100 hover:text-white transition-all"
         onClick={(e) => e.stopPropagation()}
-        aria-label="Open original page"
+        aria-label={t.open}
       >
         <ExternalLink className="w-3.5 h-3.5" />
-      </a>
+      </a></div>
     </motion.article>
   );
 }
