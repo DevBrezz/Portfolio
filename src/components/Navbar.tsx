@@ -33,7 +33,7 @@ export function Navbar() {
         <Link to="/" className="flex items-center gap-2 group">
           <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="brand-logo" />
           <span className="font-semibold text-mc-white tracking-tight">
-            King<span className="text-mc-red">Brezz</span>
+            Dev<span className="text-mc-red">Brezz</span>
           </span>
         </Link>
 

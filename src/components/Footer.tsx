@@ -35,7 +35,7 @@ export function Footer() {
                   className="text-mc-text hover:text-mc-red transition-colors">SpigotMC</a>
               </li>
               <li>
-                <a href="https://modrinth.com/user/DevBrezz" target="_blank" rel="noopener noreferrer"
+                <a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noopener noreferrer"
                   className="text-mc-text hover:text-mc-red transition-colors">Modrinth</a>
               </li>
             </ul>
@@ -48,7 +48,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-mc-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-mc-muted">
-          <p>© {year} DevBrezz / DevBrezz. All rights reserved.</p>
+          <p>© {year} DevBrezz. All rights reserved.</p>
           <p>Resources auto-synced from SpigotMC & Modrinth.</p>
         </div>
       </div>
