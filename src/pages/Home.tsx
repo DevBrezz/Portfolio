@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, ShieldCheck, UserRound, Boxes, Handshake, ChevronRight, Sparkles } from 'lucide-react';
+import { ArrowRight, ShieldCheck, UserRound, Boxes, Handshake, ChevronRight, Sparkles, Bug, Activity } from 'lucide-react';
 import { useResources } from '../hooks/useResources';
 import { ProjectCard } from '../components/ProjectCard';
 
@@ -38,6 +38,7 @@ export function Home() {
         <div className="flex flex-wrap gap-3 mt-8">
           <Link to="/projects" className="home-primary">Explore my plugins <ArrowRight size={17}/></Link>
           <a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer" className="home-secondary"><ModrinthMark/> Find me on Modrinth</a>
+          <Link to="/report" className="home-report-cta"><Bug size={17}/> Report a bug <ArrowRight size={15}/></Link>
         </div>
         <button type="button" className="xp-console mt-7" onClick={earnXp} aria-label={`Earn XP, current progress ${xp} percent`}>
           <div className="xp-console-top"><span><Sparkles size={13}/> EXPLORER XP</span><strong>LVL {Math.floor(xp / 25) + 1} <i>{xp}/100 XP</i></strong></div>
@@ -51,6 +52,15 @@ export function Home() {
           <Link to="/about" className="shield-more" aria-label="Read about my engineering principles"><ChevronRight size={20}/></Link>
         </div>
       </motion.div>
+    </section>
+
+    <section className="report-home-strip max-w-6xl mx-auto px-4 sm:px-6 py-8" aria-label="Bug report center">
+      <div className="report-home-card">
+        <div className="report-home-icon"><Activity size={23}/><span /></div>
+        <div className="report-home-copy"><div className="report-home-kicker"><span className="report-live-dot"/> SUPPORT SYSTEM · ONLINE</div><h2>Found something that needs fixing?</h2><p>Send a structured bug report with reproduction steps so the issue can be investigated.</p></div>
+        <Link to="/report" className="report-home-action">Open Report Center <ArrowRight size={16}/></Link>
+        <div className="report-home-scan" aria-hidden="true" />
+      </div>
     </section>
 
     <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Check, ExternalLink, Mail, ArrowUpRight, ShieldCheck, MessageCircle } from 'lucide-react';
+import { Copy, Check, ExternalLink, Mail, ArrowUpRight, ShieldCheck, MessageCircle, PhoneCall } from 'lucide-react';
 import { copyToClipboard } from '../lib/utils';
 
 const DISCORD_INVITE = 'https://discord.gg/wzBqRXWp';
@@ -36,7 +36,7 @@ export function Contact() {
           className="mx-auto mb-12 max-w-3xl text-center"
         >
           <div className="contact-eyebrow mx-auto mb-5 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em]">
-            <span className="contact-status-dot" /> Open channel · Contact
+            <span className="contact-status-dot" /> Open channel · Contact <span className="contact-phone-mini" aria-hidden="true"><PhoneCall size={13}/></span>
           </div>
           <h1 className="contact-heading text-5xl font-black tracking-tight sm:text-7xl">
             Let&apos;s build <span>something great.</span>
@@ -89,6 +89,7 @@ export function Contact() {
               </div>
             </div>
             <div className="discord-hero-orb" aria-hidden="true"><MessageCircle size={34} /></div>
+            <div className="contact-phone-orb" aria-hidden="true"><span className="contact-phone-ring"/><PhoneCall size={21}/><span className="contact-phone-signal">LIVE</span></div>
           </div>
           <div className="discord-card-footer"><span>discord.gg/wzBqRXWp</span><span>Opens Discord invite <ExternalLink size={13} /></span></div>
         </motion.a>

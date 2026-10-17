@@ -1,6 +1,6 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Bug, CheckCircle2, CircleAlert, Send, MessageSquareText, ShieldCheck } from 'lucide-react';
+import { Bug, CheckCircle2, CircleAlert, Send, MessageSquareText, ShieldCheck, Check, Cpu, Activity, LockKeyhole, Sparkles } from 'lucide-react';
 
 const API_BASE = 'https://kingbrezz-report-api.brezzteam5.workers.dev';
 
@@ -19,15 +19,36 @@ export function Report() {
   const [contact, setContact] = useState(initialContact);
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState<Status>(null);
+  const [verifying, setVerifying] = useState(false);
+  const [verified, setVerified] = useState(false);
+  const [verifyProgress, setVerifyProgress] = useState(0);
+
+  useEffect(() => {
+    if (!verifying) return;
+    setVerifyProgress(0);
+    const started = Date.now();
+    const timer = window.setInterval(() => {
+      const progress = Math.min(100, ((Date.now() - started) / 7000) * 100);
+      setVerifyProgress(progress);
+      if (progress >= 100) {
+        window.clearInterval(timer);
+        setVerifying(false);
+        setVerified(true);
+      }
+    }, 80);
+    return () => window.clearInterval(timer);
+  }, [verifying]);
 
   const changeKind = (next: FormKind) => {
     setKind(next);
     setStatus(null);
+    setVerified(false);
+    setVerifying(false);
   };
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (sending) return;
+    if (sending || !verified) return;
     setStatus(null);
     setSending(true);
     const values = kind === 'bug' ? bug : contact;
@@ -76,6 +97,8 @@ export function Report() {
       setStatus({ kind: 'success', message: kind === 'bug' ? 'Bug report sent successfully. Thank you for helping improve the project.' : 'Your message was sent successfully. Thanks for reaching out.' });
       if (kind === 'bug') setBug(initialBug);
       else setContact(initialContact);
+      setVerified(false);
+      setVerifyProgress(0);
     } catch (error) {
       setStatus({
         kind: 'error',
@@ -95,6 +118,7 @@ export function Report() {
     <div className="report-page relative min-h-screen overflow-hidden pt-28 pb-20">
       <div className="report-glow report-glow-one" aria-hidden="true" />
       <div className="report-glow report-glow-two" aria-hidden="true" />
+      {status?.kind === 'success' && <div className="report-success-backdrop" aria-hidden="true"><span/><span/><span/><span/><span/><span/><span/><span/></div>}
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <motion.header initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="mx-auto mb-10 max-w-3xl text-center">
           <span className="report-eyebrow"><ShieldCheck size={14} /> KINGBREZZ SUPPORT</span>
@@ -123,12 +147,18 @@ export function Report() {
           </div>
 
           {status && (
-            <div className={`report-status ${status.kind}`} role="status" aria-live="polite">
-              {status.kind === 'success' ? <CheckCircle2 size={18} /> : <CircleAlert size={18} />}
+            <motion.div key={status.kind + status.message} initial={{ opacity: 0, y: 8, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} className={`report-status ${status.kind} ${status.kind === 'success' ? 'report-success-burst' : ''}`} role="status" aria-live="polite">
+              {status.kind === 'success' ? <CheckCircle2 size={20} /> : <CircleAlert size={18} />}
               <span>{status.message}</span>
-            </div>
+              {status.kind === 'success' && <Sparkles className="report-success-spark" size={18}/>}
+            </motion.div>
           )}
 
+          {kind === 'bug' && <div className="report-diagnostic" aria-label="Report system status">
+            <div className="report-diagnostic-top"><span><Activity size={14}/> DIAGNOSTIC CONSOLE</span><span className="report-console-online"><i/> {verified ? 'VERIFIED' : verifying ? 'VERIFYING' : 'AWAITING CHECK'}</span></div>
+            <div className="report-diagnostic-grid"><div><Cpu size={15}/><span>FORM ENGINE</span><b>READY</b></div><div><LockKeyhole size={15}/><span>HUMAN CHECK</span><b>{verified ? 'PASSED' : verifying ? 'RUNNING' : 'LOCKED'}</b></div><div><Activity size={15}/><span>API CHANNEL</span><b>ARMED</b></div></div>
+            <div className="report-terminal-lines" aria-hidden="true"><span>› initialize report protocol</span><span>› validate required fields</span><span className={verified ? 'terminal-pass' : ''}>› {verified ? 'verification token ready' : verifying ? 'checking interaction signal...' : 'awaiting human verification'}</span></div>
+          </div>}
           <form onSubmit={submit} className="report-form">
             <div className="report-honeypot" aria-hidden="true">
               <label htmlFor={`website-${kind}`}>Leave this field empty</label>
@@ -190,10 +220,19 @@ export function Report() {
                 </label>
               </>
             )}
+            <div className={`report-human-check ${verified ? 'is-verified' : ''} ${verifying ? 'is-verifying' : ''}`}>
+              <button type="button" className="report-check-toggle" onClick={() => { if (!verified && !verifying) { setStatus(null); setVerifying(true); } }} disabled={verified || verifying} aria-label="Start human verification">
+                <span className="report-check-box">{verified ? <Check size={19}/> : verifying ? <span className="report-spinner"/> : null}</span>
+                <span className="report-check-label"><strong>{verified ? 'Verification complete' : verifying ? 'Verifying your interaction…' : 'I’m not a robot'}</strong><small>{verified ? 'You can submit your report now.' : verifying ? 'Please wait while the security check finishes.' : 'Tap to run the quick security check'}</small></span>
+                <span className="report-check-mark"><ShieldCheck size={25}/><small>SECURE<br/>CHECK</small></span>
+              </button>
+              {verifying && <div className="report-verify-progress"><span style={{ width: `${verifyProgress}%` }}/></div>}
+              {verifying && <div className="report-verify-foot"><span>Checking request integrity</span><strong>{Math.floor(verifyProgress)}%</strong></div>}
+            </div>
             <div className="report-form-bottom">
-              <p>Your form is only sent when you press submit.</p>
-              <button className="report-submit" type="submit" disabled={sending}>
-                {sending ? <><span className="report-spinner" /> Sending...</> : <><Send size={16} /> {kind === 'bug' ? 'Submit report' : 'Send message'}</>}
+              <p>{verified ? 'Verification passed. Review your details, then submit.' : 'Complete the security check to unlock submission.'}</p>
+              <button className="report-submit" type="submit" disabled={sending || !verified}>
+                {sending ? <><span className="report-spinner" /> Sending...</> : status?.kind === 'success' ? <><CheckCircle2 size={16}/> Sent successfully</> : <><Send size={16} /> {kind === 'bug' ? 'Submit report' : 'Send message'}</>}
               </button>
             </div>
           </form>
