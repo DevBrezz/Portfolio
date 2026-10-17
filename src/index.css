@@ -388,3 +388,71 @@ a:hover .brand-logo { transform: rotate(-4deg) scale(1.05); box-shadow: 0 0 32px
 @keyframes contact-phone-ring{0%{transform:scale(.8);opacity:.8}100%{transform:scale(1.55);opacity:0}}
 @media(max-width:700px){.report-home-card{align-items:flex-start;flex-wrap:wrap;padding:19px;gap:14px}.report-home-icon{width:48px;height:48px}.report-home-copy{flex-basis:calc(100% - 64px)}.report-home-action{width:100%;margin-top:2px}.report-form-grid{grid-template-columns:1fr}.report-panel-heading{padding:19px}.report-form{padding:18px}.report-diagnostic{margin:15px 18px 0}.report-diagnostic-grid{gap:5px}.report-diagnostic-grid span{font-size:7px}.report-check-toggle{gap:10px;padding:12px}.report-check-mark{gap:4px}.report-form-bottom{align-items:stretch;flex-direction:column}.report-form-bottom p{max-width:none}.report-submit{width:100%;min-height:44px}.report-status{margin:14px 18px 0}.contact-phone-orb{right:17px;bottom:60px;width:42px;height:42px}}
 @media(prefers-reduced-motion:reduce){.home-report-cta,.report-home-scan,.report-live-dot,.report-glow,.report-terminal-lines span,.report-success-spark,.report-success-backdrop span,.contact-phone-mini,.contact-phone-orb,.contact-phone-ring{animation:none!important;transition:none!important}}
+
+
+/* Live report API diagnostics */
+.report-console-offline { color: #ff8b84 !important; }
+.report-console-offline i { background: #ff6259 !important; box-shadow: 0 0 10px rgba(255,98,89,.55) !important; }
+.report-health-detail { display:flex; align-items:center; gap:11px; margin-top:14px; padding:12px; border:1px solid rgba(255,255,255,.075); border-radius:12px; background:rgba(0,0,0,.2); }
+.report-health-icon { display:grid; place-items:center; flex:0 0 34px; height:34px; border-radius:10px; background:rgba(255,255,255,.05); color:#b7b7c2; }
+.report-health-icon.online { color:#7ee0a5; background:rgba(105,212,155,.1); }
+.report-health-icon.offline { color:#ff8b84; background:rgba(255,98,89,.1); }
+.report-health-copy { display:flex; flex:1; min-width:0; flex-direction:column; gap:3px; }
+.report-health-copy strong { color:#eeeef2; font-size:11px; }
+.report-health-copy small { color:#8e8e9a; font-size:10px; line-height:1.5; overflow-wrap:anywhere; }
+.report-console-refresh { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:7px 9px; border:1px solid #35353e; border-radius:8px; color:#d7d7df; background:#19191e; font-size:10px; font-weight:700; white-space:nowrap; }
+.report-console-refresh:hover:not(:disabled) { border-color:rgba(231,76,60,.55); color:#fff; }
+.report-console-refresh:disabled { opacity:.55; cursor:wait; }
+.report-spin { animation:report-spin 1s linear infinite; }
+@keyframes report-spin { to { transform:rotate(360deg); } }
+.report-terminal-lines .terminal-fail { color:#ff8b84; }
+@media (max-width:420px) { .report-health-detail { align-items:flex-start; flex-wrap:wrap; } .report-console-refresh { margin-left:45px; } }
+@media (prefers-reduced-motion: reduce) { .report-spin { animation:none; } }
+
+
+/* KingBrezz polish pass: tighter rhythm, clearer mobile navigation, image zoom viewer */
+.site-navbar { padding-top: env(safe-area-inset-top, 0px); }
+.site-navbar nav { min-height: 64px; }
+.site-navbar a, .site-navbar button { -webkit-tap-highlight-color: transparent; }
+.site-navbar nav > div.hidden { gap: 3px; }
+.site-navbar nav > div.hidden > a { padding: 9px 12px; border-radius: 10px; }
+.site-navbar nav > div.hidden > a:hover { background: rgba(255,255,255,.045); }
+.mobile-nav-panel { max-height: calc(100dvh - 72px); overflow-y: auto; box-shadow: 0 24px 48px rgba(0,0,0,.32); }
+.mobile-nav-panel a { min-height: 44px; display:flex; align-items:center; border:1px solid transparent; }
+.mobile-nav-panel a[aria-current="page"], .mobile-nav-panel a.bg-mc-surface { border-color:rgba(245,92,91,.18); }
+/* Keep section spacing intentional instead of leaving oversized dead zones. */
+.home-hero { padding-bottom: clamp(3rem, 7vw, 5.5rem); }
+section { scroll-margin-top: 88px; }
+.section-heading { line-height: 1.12; letter-spacing: -.045em; }
+.project-rail { gap: 14px; }
+.project-rail-card { min-width: 0; }
+.project-card { height:100%; display:flex; flex-direction:column; }
+.project-card > a { display:flex; flex:1; flex-direction:column; }
+.project-card > a > div:last-child { flex:1; }
+.project-art { isolation:isolate; }
+.project-icon-image { transition: transform .28s ease, filter .28s ease; }
+.project-icon-image:hover { filter:brightness(1.08); }
+.image-lightbox { position:fixed; inset:0; z-index:9999; display:flex; flex-direction:column; padding: max(14px, env(safe-area-inset-top)) 14px max(14px, env(safe-area-inset-bottom)); background:rgba(5,6,12,.96); backdrop-filter:blur(18px); color:#f7f7fb; animation:lightbox-in .18s ease-out both; }
+.image-lightbox-top { display:flex; align-items:center; justify-content:space-between; gap:14px; width:min(100%,1100px); margin:0 auto; padding:8px 0 14px; border-bottom:1px solid rgba(255,255,255,.1); }
+.image-lightbox-top > div { display:flex; flex-direction:column; gap:4px; min-width:0; }
+.image-lightbox-top strong { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; }
+.image-lightbox-top span { color:#9293a4; font-size:11px; }
+.image-lightbox-top button,.image-lightbox-controls button { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-width:42px; min-height:42px; padding:9px; border:1px solid rgba(255,255,255,.13); border-radius:12px; background:rgba(255,255,255,.06); color:#f7f7fb; }
+.image-lightbox-stage { display:flex; align-items:center; justify-content:center; flex:1; min-height:0; overflow:auto; overscroll-behavior:contain; touch-action:pan-x pan-y pinch-zoom; }
+.image-lightbox-stage img { max-width:min(92vw,1100px); max-height:calc(100dvh - 180px); width:auto; height:auto; object-fit:contain; transform-origin:center; transition:transform .12s ease; user-select:none; }
+.image-lightbox-controls { display:flex; justify-content:center; align-items:center; gap:10px; padding:12px 0 4px; }
+.image-lightbox-controls button { min-width:48px; }
+.image-lightbox-controls button:nth-child(2) { padding-inline:14px; }
+.image-lightbox-hint { margin:6px 0 0; text-align:center; color:#858697; font-size:10px; line-height:1.5; }
+@keyframes lightbox-in { from { opacity:0; } to { opacity:1; } }
+@media(max-width:700px) {
+  .site-navbar nav { min-height:60px; }
+  .site-navbar .brand-logo { width:25px; height:25px; }
+  .site-navbar nav > a span { font-size:14px; }
+  .home-hero { padding-top: 6rem; padding-bottom: 3.25rem; }
+  .section-heading { font-size: clamp(1.65rem, 7vw, 2.15rem); }
+  .project-rail { gap:12px; }
+  .image-lightbox { padding-inline:10px; }
+  .image-lightbox-stage img { max-width:94vw; max-height:calc(100dvh - 170px); }
+}
+@media(prefers-reduced-motion:reduce) { .image-lightbox { animation:none; } .project-icon-image { transition:none; } }
