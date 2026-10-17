@@ -9,7 +9,7 @@ import { Contact } from './pages/Contact';
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter basename="/Portfolio">
       <div className="min-h-screen flex flex-col bg-mc-black text-mc-text">
         <Navbar />
         <main className="flex-1">
