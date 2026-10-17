@@ -11,7 +11,7 @@ import { LanguageProvider } from './lib/i18n';
 
 export default function App() {
   return (
-    <LanguageProvider><BrowserRouter basename="/Portfolio">
+    <LanguageProvider><BrowserRouter>
       <div className="min-h-screen flex flex-col bg-mc-black text-mc-text">
         <Navbar />
         <main className="flex-1">
