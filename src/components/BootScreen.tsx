@@ -30,9 +30,9 @@ export function BootScreen() {
           <span className="dirt-spark dirt-spark-one">✦</span><span className="dirt-spark dirt-spark-two">✧</span>
         </div>
         <div className="boot-copy">
-          <div className="boot-eyebrow"><Sparkles size={13} /> BUILT FOR YOUR NEXT IDEA</div>
-          <h1>Need a hand with your next<br/><span>Minecraft idea?</span></h1>
-          <p>Explore useful plugins, smarter server tools, and ideas made to help your world run better.</p>
+          <div className="boot-eyebrow"><Sparkles size={13} /> {copy.eyebrow}</div>
+          <h1>{copy.title}<br/><span>{copy.titleAccent}</span></h1>
+          <p>{copy.body}</p>
         </div>
         <div className="boot-progress" aria-hidden="true"><span /></div>
         <div className="boot-footer"><span>{copy.footer}</span><span>{copy.entering} <ArrowUpRight size={12}/></span></div>
