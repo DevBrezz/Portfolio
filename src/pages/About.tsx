@@ -19,9 +19,9 @@ export function About() {
       <motion.section initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} className="about-hero">
         <div className="eyebrow">THE PERSON BEHIND THE PLUGINS</div>
         <h1 className="section-heading about-title">I build tools that make<br className="hidden sm:block" /> Minecraft servers <span>better.</span></h1>
-        <p className="about-lead">I’m <strong>DevBrezz</strong> (also known as DevBrezz), an independent developer focused on Minecraft server plugins and the systems around them. My work sits at the intersection of gameplay, reliability, protection, and server administration.</p>
+        <p className="about-lead">I’m <strong>DevBrezz</strong>, an independent developer focused on Minecraft server plugins and the systems around them. My work sits at the intersection of gameplay, reliability, protection, and server administration.</p>
         <div className="flex flex-wrap gap-3 mt-7">
-          <a className="profile-link" href="https://modrinth.com/user/DevBrezz" target="_blank" rel="noreferrer">Modrinth <ArrowUpRight size={15}/></a>
+          <a className="profile-link" href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer">Modrinth <ArrowUpRight size={15}/></a>
           <a className="profile-link" href="https://www.spigotmc.org/resources/authors/brezz.2530124/" target="_blank" rel="noreferrer">SpigotMC <ArrowUpRight size={15}/></a>
         </div>
       </motion.section>
