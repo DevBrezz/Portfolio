@@ -7,6 +7,8 @@ import { ProjectDetail } from './pages/ProjectDetail';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { Donate } from './pages/Donate';
+import { Report } from './pages/Report';
+import { KingBrezzAssistant } from './components/KingBrezzAssistant';
 
 export default function App() {
   return (
@@ -21,10 +23,13 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate />} />
+            <Route path="/report" element={<Report />} />
+            <Route path="/assistant" element={<KingBrezzAssistant page />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
         <Footer />
+        <KingBrezzAssistant />
       </div>
     </BrowserRouter>
   );
