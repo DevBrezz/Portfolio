@@ -7,7 +7,7 @@ import { cn } from '../lib/utils';
 const links = [
   { to: '/', label: 'Home' },
   { to: '/projects', label: 'Projects' },
-  { to: '/about', label: 'About' },
+  { to: '/about', label: 'Who is KingBrezz?' },
   { to: '/contact', label: 'Contact' },
 ];
 
