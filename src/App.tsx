@@ -12,10 +12,19 @@ import { useEffect, useState } from 'react';
 import { Report } from './pages/Report';
 import { LanguageProvider } from './lib/i18n';
 import { KingBrezzAssistant } from './components/KingBrezzAssistant';
-import { FloatingDonate } from './components/FloatingDonate';
 import { VisitorBadge } from './components/VisitorBadge';
 
 export default function App() {
+  const [showBoot, setShowBoot] = useState(false);
+  useEffect(() => {
+    let alreadyShown = false;
+    try { alreadyShown = sessionStorage.getItem('kingbrezz-boot-shown') === '1'; } catch { /* storage may be unavailable */ }
+    if (alreadyShown) return;
+    setShowBoot(true);
+    try { sessionStorage.setItem('kingbrezz-boot-shown', '1'); } catch { /* storage may be unavailable */ }
+    const timer = window.setTimeout(() => setShowBoot(false), 2300);
+    return () => window.clearTimeout(timer);
+  }, []);
   return (
     <LanguageProvider><BrowserRouter>
       <div className="min-h-screen flex flex-col bg-mc-black text-mc-text">
@@ -35,8 +44,8 @@ export default function App() {
         </main>
         <Footer />
         <KingBrezzAssistant />
-        <FloatingDonate />
         <VisitorBadge />
+        {showBoot && <BootScreen />}
       </div>
     </BrowserRouter></LanguageProvider>
   );
