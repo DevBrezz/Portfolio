@@ -1,11 +1,12 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Bug, CheckCircle2, CircleAlert, Send, MessageSquareText, ShieldCheck, Check, Cpu, Activity, LockKeyhole, Sparkles } from 'lucide-react';
+import { Bug, CheckCircle2, CircleAlert, Send, MessageSquareText, ShieldCheck, Check, Cpu, Activity, LockKeyhole, Sparkles, RefreshCw, Wifi, WifiOff } from 'lucide-react';
 
 const API_BASE = 'https://kingbrezz-report-api.brezzteam5.workers.dev';
 
 type FormKind = 'bug' | 'contact';
 type Status = { kind: 'success' | 'error'; message: string } | null;
+type ApiHealth = { state: 'checking' | 'online' | 'offline'; latency: number | null; checkedAt: Date | null; detail: string };
 
 const initialBug = {
   name: '', email: '', project: '', title: '', description: '',
@@ -22,6 +23,30 @@ export function Report() {
   const [verifying, setVerifying] = useState(false);
   const [verified, setVerified] = useState(false);
   const [verifyProgress, setVerifyProgress] = useState(0);
+  const [apiHealth, setApiHealth] = useState<ApiHealth>({ state: 'checking', latency: null, checkedAt: null, detail: 'Checking support API…' });
+  const [healthRefresh, setHealthRefresh] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 8000);
+    const started = performance.now();
+    setApiHealth((current) => ({ ...current, state: 'checking', detail: 'Checking support API…' }));
+    fetch(`${API_BASE}/api/health`, { method: 'GET', cache: 'no-store', signal: controller.signal })
+      .then(async (response) => {
+        const latency = Math.round(performance.now() - started);
+        if (!response.ok) throw new Error(`Health endpoint returned HTTP ${response.status}`);
+        if (active) setApiHealth({ state: 'online', latency, checkedAt: new Date(), detail: 'Health endpoint responded successfully.' });
+      })
+      .catch((error: unknown) => {
+        const detail = error instanceof DOMException && error.name === 'AbortError'
+          ? 'Health check timed out after 8 seconds.'
+          : error instanceof Error ? error.message : 'Could not reach the health endpoint.';
+        if (active) setApiHealth({ state: 'offline', latency: null, checkedAt: new Date(), detail });
+      })
+      .finally(() => window.clearTimeout(timeout));
+    return () => { active = false; controller.abort(); window.clearTimeout(timeout); };
+  }, [healthRefresh]);
 
   useEffect(() => {
     if (!verifying) return;
@@ -154,11 +179,12 @@ export function Report() {
             </motion.div>
           )}
 
-          {kind === 'bug' && <div className="report-diagnostic" aria-label="Report system status">
-            <div className="report-diagnostic-top"><span><Activity size={14}/> DIAGNOSTIC CONSOLE</span><span className="report-console-online"><i/> {verified ? 'VERIFIED' : verifying ? 'VERIFYING' : 'AWAITING CHECK'}</span></div>
-            <div className="report-diagnostic-grid"><div><Cpu size={15}/><span>FORM ENGINE</span><b>READY</b></div><div><LockKeyhole size={15}/><span>HUMAN CHECK</span><b>{verified ? 'PASSED' : verifying ? 'RUNNING' : 'LOCKED'}</b></div><div><Activity size={15}/><span>API CHANNEL</span><b>ARMED</b></div></div>
-            <div className="report-terminal-lines" aria-hidden="true"><span>› initialize report protocol</span><span>› validate required fields</span><span className={verified ? 'terminal-pass' : ''}>› {verified ? 'verification token ready' : verifying ? 'checking interaction signal...' : 'awaiting human verification'}</span></div>
-          </div>}
+          <div className="report-diagnostic" aria-label="Report system diagnostics">
+            <div className="report-diagnostic-top"><span><Activity size={14}/> LIVE DIAGNOSTIC CONSOLE</span><span className={`report-console-online ${apiHealth.state === 'offline' ? 'report-console-offline' : ''}`}><i/> {apiHealth.state === 'online' ? 'API ONLINE' : apiHealth.state === 'offline' ? 'API UNREACHABLE' : 'CHECKING API'}</span></div>
+            <div className="report-diagnostic-grid"><div><Cpu size={15}/><span>FORM ENGINE</span><b>READY</b></div><div><LockKeyhole size={15}/><span>HUMAN CHECK</span><b>{verified ? 'PASSED' : verifying ? 'RUNNING' : 'LOCKED'}</b></div><div><Activity size={15}/><span>SUPPORT API</span><b>{apiHealth.state === 'online' ? 'ONLINE' : apiHealth.state === 'offline' ? 'OFFLINE' : 'CHECKING'}</b></div></div>
+            <div className="report-health-detail"><span className={`report-health-icon ${apiHealth.state}`}>{apiHealth.state === 'online' ? <Wifi size={15}/> : apiHealth.state === 'offline' ? <WifiOff size={15}/> : <RefreshCw size={15} className="report-spin"/>}</span><div className="report-health-copy"><strong>{apiHealth.state === 'online' ? `API responded in ${apiHealth.latency} ms` : apiHealth.state === 'offline' ? 'API check failed' : 'Checking API connectivity'}</strong><small>{apiHealth.detail}{apiHealth.checkedAt ? ` · ${apiHealth.checkedAt.toLocaleTimeString()}` : ''}</small></div><button type="button" className="report-console-refresh" onClick={() => setHealthRefresh((n) => n + 1)} disabled={apiHealth.state === 'checking'}><RefreshCw size={13}/> Refresh</button></div>
+            <div className="report-terminal-lines"><span>› initialize report protocol</span><span>› validate required fields</span><span className={verified ? 'terminal-pass' : ''}>› {verified ? 'verification step complete' : verifying ? 'running visual interaction check...' : 'awaiting form verification'}</span><span className={apiHealth.state === 'online' ? 'terminal-pass' : apiHealth.state === 'offline' ? 'terminal-fail' : ''}>› {apiHealth.state === 'online' ? `GET /api/health · HTTP OK · ${apiHealth.latency}ms` : apiHealth.state === 'offline' ? 'GET /api/health · request failed' : 'GET /api/health · probing endpoint'}</span></div>
+          </div>
           <form onSubmit={submit} className="report-form">
             <div className="report-honeypot" aria-hidden="true">
               <label htmlFor={`website-${kind}`}>Leave this field empty</label>
