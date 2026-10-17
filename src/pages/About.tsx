@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Code2, Server, Shield, Wrench, Target, Boxes, HeartHandshake, ArrowUpRight } from 'lucide-react';
+import { Code2, Server, Shield, Wrench, Target, Boxes, HeartHandshake, ArrowUpRight, Orbit } from 'lucide-react';
 
 export function About() {
   const principles = [
@@ -17,11 +17,20 @@ export function About() {
   return <div className="pt-24 pb-20 min-h-screen mc-grid-bg">
     <div className="max-w-6xl mx-auto px-4 sm:px-6">
       <motion.section initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} className="about-hero">
-        <div className="eyebrow">THE PERSON BEHIND THE PLUGINS</div>
-        <h1 className="section-heading about-title">I build tools that make<br className="hidden sm:block" /> Minecraft servers <span>better.</span></h1>
-        <p className="about-lead">I’m <strong>KingBrezz</strong> (also known as ItsMe Brezz), an independent developer focused on Minecraft server plugins and the systems around them. My work sits at the intersection of gameplay, reliability, protection, and server administration.</p>
+        <div className="about-cosmic-layout">
+          <div className="about-cosmic-copy">
+            <div className="eyebrow"><Orbit size={13}/> THE PERSON BEHIND THE PLUGINS</div>
+            <h1 className="section-heading about-title">I build tools that make<br className="hidden sm:block"/> Minecraft servers <span>better.</span></h1>
+            <p className="about-lead">I’m <strong>KingBrezz</strong>, an independent developer creating Minecraft plugins and tools for the people who run and play on servers. I enjoy turning ideas into useful systems — from gameplay and economy features to protection, automation, and performance utilities.</p>
+            <p className="about-lead about-lead-small">My goal is simple: make server administration smoother, give communities better tools, and keep releases honest about compatibility, testing, and limitations.</p>
+          </div>
+          <div className="globe-stage" role="img" aria-label="Animated three-dimensional digital globe representing the connected Minecraft development ecosystem">
+            <div className="globe-starfield"/><div className="globe-orbit globe-orbit-one"/><div className="globe-orbit globe-orbit-two"/>
+            <div className="globe-sphere"><div className="globe-longitude globe-longitude-a"/><div className="globe-longitude globe-longitude-b"/><div className="globe-latitude globe-latitude-a"/><div className="globe-latitude globe-latitude-b"/><div className="globe-land globe-land-one"/><div className="globe-land globe-land-two"/><div className="globe-land globe-land-three"/><div className="globe-glint"/></div>
+            <span className="globe-tag globe-tag-one">PLUGINS</span><span className="globe-tag globe-tag-two">COMMUNITY</span><span className="globe-tag globe-tag-three">IDEAS → CODE</span>
+          </div>
+        </div>
         <div className="flex flex-wrap gap-3 mt-7">
-          <a className="profile-link" href="https://github.com/Brezzz" target="_blank" rel="noreferrer">GitHub (Brezzz) <ArrowUpRight size={15}/></a>
           <a className="profile-link" href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer">Modrinth <ArrowUpRight size={15}/></a>
           <a className="profile-link" href="https://www.spigotmc.org/resources/authors/brezz.2530124/" target="_blank" rel="noreferrer">SpigotMC <ArrowUpRight size={15}/></a>
         </div>
