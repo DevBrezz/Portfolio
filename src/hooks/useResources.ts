@@ -1,8 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { Resource, ResourcesData, SortOption, PlatformFilter } from '../types/resource';
 
-const DATA_URL = `${import.meta.env.BASE_URL}data/resources.json`;
-
 export function useResources() {
   const [data, setData] = useState<ResourcesData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +11,7 @@ export function useResources() {
     async function load() {
       try {
         setLoading(true);
-        const res = await fetch(DATA_URL);
+        const res = await fetch(`${import.meta.env.BASE_URL}data/resources.json`);
         if (!res.ok) throw new Error(`Failed to load resources (${res.status})`);
         const json: ResourcesData = await res.json();
         if (!cancelled) {
