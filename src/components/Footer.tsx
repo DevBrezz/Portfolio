@@ -24,6 +24,7 @@ export function Footer() {
               <li><Link to="/projects" className="text-mc-text hover:text-mc-red transition-colors">Projects</Link></li>
               <li><Link to="/about" className="text-mc-text hover:text-mc-red transition-colors">About</Link></li>
               <li><Link to="/contact" className="text-mc-text hover:text-mc-red transition-colors">Contact</Link></li>
+              <li><Link to="/report" className="text-mc-text hover:text-mc-red transition-colors">Report a bug</Link></li>
             </ul>
           </div>
 
