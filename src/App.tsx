@@ -20,7 +20,6 @@ export default function App() {
     <LanguageProvider><BrowserRouter>
       <div className="min-h-screen flex flex-col bg-mc-black text-mc-text">
         <Navbar />
-        <VisitorBadge />
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -37,6 +36,7 @@ export default function App() {
         <Footer />
         <KingBrezzAssistant />
         <FloatingDonate />
+        <VisitorBadge />
       </div>
     </BrowserRouter></LanguageProvider>
   );
