@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ShieldCheck, UserRound, Boxes, Handshake, ChevronRight, Sparkles, Bug, Activity } from 'lucide-react';
 import { useResources } from '../hooks/useResources';
 import { ProjectCard } from '../components/ProjectCard';
+import { useLanguage } from '../lib/i18n';
+import { Heart, Download, PackageCheck, Sparkles as SparkleIcon } from 'lucide-react';
 
 function ModrinthMark({ className = 'w-5 h-5' }: { className?: string }) {
   return <svg className={className} viewBox="0 0 24 24" role="img" aria-label="Modrinth" fill="currentColor"><path d="M4.2 3.2 2 5.4v3.1l5.5 5.5 2.2-2.2L4.2 6.3V3.2Zm5.1 0L7.1 5.4v3.1l5.5 5.5 2.2-2.2-5.5-5.5V3.2Zm5.1 0-2.2 2.2v3.1l5.5 5.5 2.2-2.2-5.5-5.5V3.2ZM2 12.6v3.1l5.5 5.5 2.2-2.2-5.5-5.5-2.2-.9Zm5.1 0v3.1l5.5 5.5 2.2-2.2-5.5-5.5-2.2-.9Zm5.1 0v3.1l5.5 5.5 2.2-2.2-5.5-5.5-2.2-.9Z"/></svg>;
@@ -17,6 +19,7 @@ const paths = [
 
 export function Home() {
   const { resources, loading } = useResources();
+  const { t, language } = useLanguage();
   const [xp, setXp] = useState(0);
   const [secretOpen, setSecretOpen] = useState(false);
   const earnXp = () => { setXp((current) => { const next = Math.min(100, current + 10); if (next === 100) setSecretOpen(true); return next; }); };
@@ -32,11 +35,11 @@ export function Home() {
       <div className="hero-code-float hero-code-float-two" aria-hidden="true"><span>// system online</span><br/><b>if (idea != null)</b><br/><span>  ship(idea);</span><br/><span>  // no fake stats</span></div>
       <div className="solar-system" aria-label="Animated solar system illustration" role="img"><div className="solar-orbit solar-orbit-outer"><i className="solar-planet planet-blue"/></div><div className="solar-orbit solar-orbit-mid"><i className="solar-planet planet-green"/></div><div className="solar-orbit solar-orbit-inner"><i className="solar-planet planet-red"/></div><div className="solar-sun"><span/></div><div className="solar-label solar-label-one">ORBITAL / 03</div><div className="solar-label solar-label-two">SYSTEM ONLINE</div></div>
       <motion.div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 sm:py-24" initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
-        <div className="eyebrow"><span className="status-pulse"/> INDEPENDENT DEVELOPER · MINECRAFT ECOSYSTEM</div>
-        <h1 className="hero-title home-title">Ideas into tools.<br/><span className="hero-gradient">Better Minecraft worlds.</span></h1>
-        <p className="home-lead">I’m <strong>KingBrezz</strong> — an independent developer creating Minecraft plugins and server tools with a focus on practical features, thoughtful design, and transparent engineering.</p>
+        <div className="eyebrow"><span className="status-pulse"/> {language === 'id' ? 'DEVELOPER INDEPENDEN · EKOSISTEM MINECRAFT' : language === 'zh' ? '独立开发者 · MINECRAFT 生态' : language === 'nl' ? 'ONAFHANKELIJKE DEVELOPER · MINECRAFT-ECOSYSTEEM' : 'INDEPENDENT DEVELOPER · MINECRAFT ECOSYSTEM'}</div>
+        <h1 className="hero-title home-title">{language === 'id' ? <>Ide jadi karya.<br/><span className="hero-gradient">Dunia Minecraft lebih baik.</span></> : language === 'zh' ? <>让想法变成工具。<br/><span className="hero-gradient">打造更好的 Minecraft 世界。</span></> : language === 'nl' ? <>Ideeën worden tools.<br/><span className="hero-gradient">Betere Minecraft-werelden.</span></> : <>Ideas into tools.<br/><span className="hero-gradient">Better Minecraft worlds.</span></>}</h1>
+        <p className="home-lead">{language === 'id' ? <>Saya <strong>KingBrezz</strong> — developer independen yang membuat plugin Minecraft dan alat server dengan fokus pada fitur praktis, desain matang, dan pengembangan transparan.</> : language === 'zh' ? <>我是 <strong>KingBrezz</strong>，一名独立开发者，专注于 Minecraft 插件、服务器工具、实用功能与透明开发。</> : language === 'nl' ? <>Ik ben <strong>KingBrezz</strong> — een onafhankelijke ontwikkelaar van Minecraft-plugins en servertools met aandacht voor praktische functies en transparante techniek.</> : <>I’m <strong>KingBrezz</strong> — an independent developer creating Minecraft plugins and server tools with a focus on practical features, thoughtful design, and transparent engineering.</>}</p>
         <div className="flex flex-wrap gap-3 mt-8">
-          <Link to="/projects" className="home-primary">Explore my plugins <ArrowRight size={17}/></Link>
+          <Link to="/projects" className="home-primary">{t.browse} <ArrowRight size={17}/></Link>
           <a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer" className="home-secondary"><ModrinthMark/> Find me on Modrinth</a>
           <Link to="/report" className="home-report-cta"><Bug size={17}/> Report a bug <ArrowRight size={15}/></Link>
         </div>
@@ -73,5 +76,6 @@ export function Home() {
       {loading ? <div className="project-rail">{Array.from({length:4}).map((_,i)=><div key={i} className="skeleton h-64 rounded-xl project-rail-card"/>)}</div> : projects.length ? <div className="project-rail" aria-label="Featured Modrinth projects">{projects.map((r,i)=><div className="project-rail-card" key={r.id}><ProjectCard resource={r} index={i}/></div>)}</div> : <div className="empty-modrinth"><ModrinthMark className="w-8 h-8"/><p>No Modrinth projects are available in the local catalogue yet.</p><a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer">Open KingBrezz on Modrinth <ArrowRight size={15}/></a></div>}
       <div className="rail-hint"><span/> Swipe or scroll sideways to browse <span/></div>
     </section>
+    <Link to="/donate" className="home-donate-float" aria-label={t.donate}><span className="donate-float-heart"><Heart size={17} fill="currentColor"/></span><span><strong>{t.donateShort}</strong><small>{t.scanMe}</small></span><img src="https://i.imgur.com/MKH5OYh.png" alt="" loading="lazy"/></Link>
   </div>;
 }
