@@ -42,14 +42,18 @@ export function Report() {
     const payload = kind === 'bug'
       ? {
           name: bug.name.trim(),
-          email: bug.email.trim() || undefined,
-          project: bug.project.trim(),
-          title: bug.title.trim(),
-          description: bug.description.trim(),
-          steps: bug.steps.trim() || undefined,
-          expected: bug.expected.trim() || undefined,
-          actual: bug.actual.trim() || undefined,
-          severity: bug.severity,
+          // Match the deployed Worker schema: name, email, subject, message, page.
+          email: bug.email.trim(),
+          subject: bug.title.trim(),
+          page: bug.project.trim(),
+          message: [
+            `Severity: ${bug.severity}`,
+            `Description:\n${bug.description.trim()}`,
+            `Steps to reproduce:\n${bug.steps.trim() || 'Not provided'}`,
+            `Expected result:\n${bug.expected.trim() || 'Not provided'}`,
+            `Actual result:\n${bug.actual.trim() || 'Not provided'}`,
+          ].join('\n\n'),
+          website: bug.website.trim(),
         }
       : {
           name: contact.name.trim(),
@@ -76,7 +80,9 @@ export function Report() {
       setStatus({
         kind: 'error',
         message: error instanceof Error
-          ? `${error.message}${error instanceof TypeError ? ' Check your connection and try again.' : ''}`
+          ? (error instanceof TypeError
+            ? 'The support API could not be reached. Check the Worker URL, CORS allowed origin, and network connection, then try again.'
+            : error.message)
           : 'Could not send your submission. Please try again later.',
       });
     } finally {
@@ -134,8 +140,8 @@ export function Report() {
                   <label className="report-field">Name / username <span>*</span>
                     <input className={fieldClass} required maxLength={80} autoComplete="name" value={bug.name} onChange={(e) => setBug({ ...bug, name: e.target.value })} placeholder="Your name or username" />
                   </label>
-                  <label className="report-field">Email <small>Optional</small>
-                    <input className={fieldClass} type="email" maxLength={254} autoComplete="email" value={bug.email} onChange={(e) => setBug({ ...bug, email: e.target.value })} placeholder="you@example.com" />
+                  <label className="report-field">Email <span>*</span>
+                    <input className={fieldClass} required type="email" maxLength={254} autoComplete="email" value={bug.email} onChange={(e) => setBug({ ...bug, email: e.target.value })} placeholder="you@example.com" />
                   </label>
                 </div>
                 <label className="report-field">Project or page <span>*</span>
