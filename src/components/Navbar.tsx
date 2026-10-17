@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Languages, ChevronDown } from 'lucide-react';
+import { Menu, X, Languages, ChevronDown, Bug } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const links = [
@@ -9,7 +9,7 @@ const links = [
   { to: '/projects', label: 'Projects' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
-  { to: '/report', label: 'Report' },
+  { to: '/report', label: 'Report a bug' },
 ];
 
 export function Navbar() {
@@ -48,7 +48,7 @@ export function Navbar() {
               'px-4 py-2 rounded-md text-sm font-medium transition-colors relative',
               location.pathname === l.to ? 'text-mc-white' : 'text-mc-muted hover:text-mc-white'
             )}>
-              {l.label}
+              {l.to === '/report' && <Bug size={14} className="inline mr-1.5" />}{l.label}
               {location.pathname === l.to && (
                 <motion.div layoutId="nav-indicator" className="absolute bottom-0 left-2 right-2 h-0.5 bg-mc-red rounded-full"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
@@ -76,7 +76,7 @@ export function Navbar() {
                 <Link key={l.to} to={l.to} className={cn(
                   'px-4 py-3 rounded-md text-sm font-medium',
                   location.pathname === l.to ? 'bg-mc-surface text-mc-white' : 'text-mc-muted hover:bg-mc-surface hover:text-mc-white'
-                )}>{l.label}</Link>
+                )}>{l.to === '/report' && <Bug size={14} className="inline mr-1.5" />}{l.label}</Link>
               ))}
             </div>
           </motion.div>
