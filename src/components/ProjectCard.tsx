@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ExternalLink, Download, Package } from 'lucide-react';
+import { ExternalLink, Download, Package, Code2 } from 'lucide-react';
 import type { Resource } from '../types/resource';
 import { formatNumber, formatDate, cn } from '../lib/utils';
 
@@ -17,23 +17,20 @@ export function ProjectCard({ resource, index = 0 }: Props) {
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3) }}
       whileHover={{ y: -4 }}
-      className="group relative bg-mc-surface border border-mc-border rounded-xl overflow-hidden hover:border-mc-red/50 transition-colors"
+      className="project-card group relative bg-mc-surface border border-mc-border rounded-xl overflow-hidden hover:border-mc-red/50 transition-colors"
     >
       <Link to={`/project/${resource.id}`} className="block">
-        <div className="aspect-[16/10] bg-mc-gray relative overflow-hidden">
-          {resource.icon ? (
-            <img
-              src={resource.icon}
-              alt={resource.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <Package className="w-12 h-12 text-mc-muted" />
-            </div>
-          )}
+        <div className="project-art aspect-[16/10] bg-mc-gray relative overflow-hidden">
+          <div className="project-icon-fallback" aria-hidden="true">
+            <div className="fallback-brand"><Code2 className="w-7 h-7" /><span>{resource.title.split(/\s+/).map((part) => part[0]).join('').slice(0, 3).toUpperCase()}</span></div>
+          </div>
+          {resource.icon && <img
+            src={resource.icon}
+            alt={`${resource.title} logo`}
+            className="project-icon-image w-full h-full object-contain p-8 sm:p-10 group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.parentElement?.classList.add('icon-fallback'); }}
+          />}
           <div className="absolute top-3 left-3 flex gap-1.5">
             <span className={cn(
               'px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider',

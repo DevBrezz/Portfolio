@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Code2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const links = [
@@ -31,9 +31,7 @@ export function Navbar() {
     )}>
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded bg-mc-red flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Code2 className="w-4 h-4 text-white" />
-          </div>
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="brand-logo" />
           <span className="font-semibold text-mc-white tracking-tight">
             King<span className="text-mc-red">Brezz</span>
           </span>
