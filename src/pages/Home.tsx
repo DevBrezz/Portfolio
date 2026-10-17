@@ -54,8 +54,6 @@ export function Home() {
           <div><div className="shield-kicker">SECURITY-MINDED DEVELOPMENT</div><h2>Built with safety in mind.</h2><p>I prioritize validation, predictable behavior, and careful data handling. Each release should be tested for its intended environment — no software can honestly be guaranteed 100% bug-free or risk-free.</p></div>
           <Link to="/about" className="shield-more" aria-label="Read about my engineering principles"><ChevronRight size={20}/></Link>
         </div>
-      </motion.div>
-    </section>
 
     <section className="report-home-strip max-w-7xl mx-auto px-4 sm:px-6 py-8" aria-label="Bug report center">
       <div className="report-home-card">
@@ -65,6 +63,9 @@ export function Home() {
         <div className="report-home-scan" aria-hidden="true" />
       </div>
     </section>
+      </motion.div>
+    </section>
+
 
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       <div className="section-topline"><div><div className="eyebrow">START HERE</div><h2 className="section-heading mt-3">A little about my world.</h2><p className="text-sm text-mc-muted mt-2">Choose a card to explore a different part of KingBrezz.</p></div></div>
