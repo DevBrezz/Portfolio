@@ -6,10 +6,12 @@ import { Projects } from './pages/Projects';
 import { ProjectDetail } from './pages/ProjectDetail';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
+import { XPRoom } from './pages/XPRoom';
+import { LanguageProvider } from './lib/i18n';
 
 export default function App() {
   return (
-    <BrowserRouter basename="/Portfolio">
+    <LanguageProvider><BrowserRouter basename="/Portfolio">
       <div className="min-h-screen flex flex-col bg-mc-black text-mc-text">
         <Navbar />
         <main className="flex-1">
@@ -19,11 +21,12 @@ export default function App() {
             <Route path="/project/:id" element={<ProjectDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/xp" element={<XPRoom />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
         <Footer />
       </div>
-    </BrowserRouter>
+    </BrowserRouter></LanguageProvider>
   );
 }
