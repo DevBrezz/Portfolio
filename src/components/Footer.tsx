@@ -10,7 +10,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-3">
               <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="brand-logo brand-logo-small" />
-              <span className="font-semibold text-mc-white">KingBrezz</span>
+              <span className="font-semibold text-mc-white">DevBrezz</span>
             </div>
             <p className="text-sm text-mc-muted leading-relaxed">
               Minecraft plugins, tools & server development.
@@ -35,7 +35,7 @@ export function Footer() {
                   className="text-mc-text hover:text-mc-red transition-colors">SpigotMC</a>
               </li>
               <li>
-                <a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noopener noreferrer"
+                <a href="https://modrinth.com/user/DevBrezz" target="_blank" rel="noopener noreferrer"
                   className="text-mc-text hover:text-mc-red transition-colors">Modrinth</a>
               </li>
             </ul>
@@ -43,12 +43,12 @@ export function Footer() {
 
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-mc-muted mb-3">Contact</h4>
-            <p className="text-sm text-mc-text">Discord: <span className="text-mc-red font-medium">@Brezzz</span></p>
+            <p className="text-sm text-mc-text">Discord: <span className="text-mc-red font-medium">DevBrezz</span></p>
           </div>
         </div>
 
         <div className="mt-10 pt-6 border-t border-mc-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-mc-muted">
-          <p>© {year} KingBrezz / ItsMe Brezz. All rights reserved.</p>
+          <p>© {year} DevBrezz / DevBrezz. All rights reserved.</p>
           <p>Resources auto-synced from SpigotMC & Modrinth.</p>
         </div>
       </div>
