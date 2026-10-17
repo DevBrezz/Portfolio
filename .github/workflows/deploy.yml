@@ -28,17 +28,16 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
-      - name: Prepare GitHub Pages routes
+      - name: Verify and prepare GitHub Pages routes
         run: |
           set -eu
           test -s dist/index.html
           test -d dist/assets
-          # Publish static entry files for known BrowserRouter routes.
+          grep -q '/Portfolio/assets/' dist/index.html
           for route in projects about contact; do
             mkdir -p "dist/$route"
             cp dist/index.html "dist/$route/index.html"
           done
-          # Fallback for dynamic routes such as /project/<id>.
           cp dist/index.html dist/404.html
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
