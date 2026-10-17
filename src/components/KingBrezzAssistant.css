@@ -13,3 +13,14 @@
 .kb-answer-modal .kb-answer-note{padding-top:12px;border-top:1px solid #ffffff0d;color:#777688;font-size:10px}
 .kb-assistant-foot{justify-content:flex-end}
 @media(max-width:620px){.kb-answer-overlay{padding:10px}.kb-answer-modal{padding:17px;border-radius:15px}.kb-answer-modal p{font-size:12px}}
+
+/* Persistent action stack: viewport-fixed across route changes and scrolling. */
+.kb-assistant-floating{position:fixed!important;right:max(16px,calc((100vw - 1280px)/2))!important;bottom:94px!important;z-index:1000!important;will-change:transform}
+.kb-floating-donate{position:fixed;right:max(16px,calc((100vw - 1280px)/2));bottom:22px;z-index:999;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 17px;border:1px solid #ff8caa55;border-radius:999px;background:linear-gradient(135deg,#ff7598,#d93b69);color:#fff;font-size:12px;font-weight:800;box-shadow:0 8px 28px #e7487840;transition:transform .2s,filter .2s}
+.kb-floating-donate:hover{transform:translateY(-3px);filter:brightness(1.08)}
+.kb-visitor-badge{position:fixed;left:14px;bottom:14px;z-index:70;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 9px;border:1px solid #ffffff16;border-radius:13px;background:#11111bd9;color:#aaa7c5;font-size:10px;box-shadow:0 6px 20px #0004;backdrop-filter:blur(10px)}
+.kb-visitor-badge svg{animation:kb-eye-pulse 2.4s ease-in-out infinite;color:#a99aff}
+.kb-visitor-badge span{font-variant-numeric:tabular-nums;font-weight:800;color:#f3f0ff}
+@keyframes kb-eye-pulse{0%,100%{opacity:.65;transform:scale(1)}50%{opacity:1;transform:scale(1.14)}}
+@media(max-width:620px){.kb-assistant-floating{right:12px!important;bottom:82px!important}.kb-floating-donate{right:12px;bottom:14px;min-height:42px;padding:0 14px}.kb-visitor-badge{left:10px;bottom:10px}}
+@media(prefers-reduced-motion:reduce){.kb-visitor-badge svg{animation:none}.kb-floating-donate{transition:none}}
