@@ -61,7 +61,7 @@ export function OfflineScreen() {
           <div className="offline-rune offline-rune-one" />
           <div className="offline-rune offline-rune-two" />
           <div className="offline-wifi-orbit"><WifiOff size={86} strokeWidth={1.15} /></div>
-          <img className="offline-warden" src="/images/warden.gif" alt="Warden" loading="eager" decoding="async" />
+          <img className="offline-warden" src="/images/warden.gif" alt="" />
           <div className="offline-ground-glow" />
         </div>
 
