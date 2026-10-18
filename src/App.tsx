@@ -13,6 +13,7 @@ import { Report } from './pages/Report';
 import { LanguageProvider } from './lib/i18n';
 import { KingBrezzAssistant } from './components/KingBrezzAssistant';
 import { VisitorBadge } from './components/VisitorBadge';
+import { OfflineScreen } from './components/OfflineScreen';
 
 export default function App() {
   const [showBoot, setShowBoot] = useState(false);
@@ -46,6 +47,7 @@ export default function App() {
         <KingBrezzAssistant />
         <VisitorBadge />
         {showBoot && <BootScreen />}
+        <OfflineScreen />
       </div>
     </BrowserRouter></LanguageProvider>
   );
