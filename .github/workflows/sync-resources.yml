@@ -22,11 +22,13 @@ jobs:
           node-version: 22
       - name: Run sync
         run: node scripts/sync-resources.mjs
+      - name: Sync CurseForge creator resources
+        run: node scripts/sync-curseforge.mjs
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/data/resources.json
+          git add public/data/resources.json public/data/curseforge.json
           if git diff --staged --quiet; then
             echo "No changes"
           else
