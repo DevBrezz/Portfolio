@@ -8,7 +8,9 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = join(__dirname, '../public/data/resources.json');
-const MODRINTH_USER = '6CK7TRJp'; // Use the stable Modrinth user ID so syncing always targets the correct account.
+// Modrinth accepts a username or user ID. Use the stable account ID to avoid
+// username/slug lookup inconsistencies and always fetch this account's full project list.
+const MODRINTH_USER = '6CK7TRJp';
 const SPIGOT_AUTHOR = 'https://www.spigotmc.org/resources/authors/brezz.2530124/';
 
 async function fetchModrinth() {
@@ -17,7 +19,9 @@ async function fetchModrinth() {
   });
   if (!res.ok) throw new Error(`Modrinth ${res.status}`);
   const projects = await res.json();
-  return projects.map((p) => ({
+  return projects
+    .filter((p) => p && p.id && p.status !== 'rejected' && p.status !== 'archived')
+    .map((p) => ({
     id: `modrinth-${p.id}`,
     platform: 'modrinth',
     platformId: p.id,
@@ -75,7 +79,7 @@ async function fetchSpigot() {
 
   for (const html of pages) {
     let m;
-    const linkRe = /href="resources\/([^"]+)\.(\d+)\/"[^>]*>([^<]+)<\/a>/gi;
+    const linkRe = /href="(?:https?:\/\/www\.spigotmc\.org\/)?(?:\/)?resources\/([^"]+?)\.(\d+)\/"[^>]*>([^<]+)<\/a>/gi;
     while ((m = linkRe.exec(html)) !== null) {
       const slug = m[1];
       const id = m[2];
