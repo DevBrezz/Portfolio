@@ -1,15 +1,16 @@
 {
-  "lastSynced": "2026-10-18T00:09:24.798Z",
+  "lastSynced": "2026-10-18T04:00:00.000Z",
   "sources": {
     "modrinth": {
-      "status": "success",
-      "count": 6,
+      "status": "error",
+      "count": 8,
       "lastSuccess": "2026-10-18T00:09:24.798Z"
     },
     "spigot": {
-      "status": "success",
+      "status": "error",
       "count": 42,
-      "lastSuccess": "2026-10-18T00:09:24.798Z"
+      "lastSuccess": "2026-10-18T00:09:24.798Z",
+      "note": "SpigotMC fetch failed (Cloudflare or network). Previous data retained."
     }
   },
   "resources": [
@@ -1119,6 +1120,55 @@
       "hidden": false
     },
     {
+      "id": "modrinth-GIUJbLc9",
+      "platform": "modrinth",
+      "platformId": "GIUJbLc9",
+      "slug": "costumeenchant",
+      "title": "CostumeEnchant",
+      "description": "Custom enchantments for Minecraft servers with configurable effects, gameplay mechanics, and support for custom server setups. Designed for Survival, SMP, and other gameplay-focused servers.",
+      "body": "CostumeEnchant — 827+ Custom Enchantments • 11 Categories • Configurable Gameplay",
+      "icon": "https://cdn.modrinth.com/data/GIUJbLc9/dd9c9b7fd8d125b97ca5d530f0ebbd413e928512_96.webp",
+      "gallery": [],
+      "categories": [
+        "equipment",
+        "game-mechanics",
+        "magic"
+      ],
+      "loaders": [
+        "bukkit",
+        "paper",
+        "purpur",
+        "spigot"
+      ],
+      "gameVersions": [
+        "1.21",
+        "1.21.1",
+        "1.21.2",
+        "1.21.3",
+        "1.21.4",
+        "1.21.5",
+        "1.21.6",
+        "1.21.7",
+        "1.21.8",
+        "1.21.9",
+        "1.21.10",
+        "1.21.11",
+        "26.1",
+        "26.1.1",
+        "26.1.2",
+        "26.2",
+        "26.3"
+      ],
+      "version": "latest",
+      "downloads": 12,
+      "published": "2026-10-06T15:16:57.280867Z",
+      "updated": "2026-10-06T15:22:43.732471Z",
+      "url": "https://modrinth.com/project/costumeenchant",
+      "downloadUrl": "https://modrinth.com/project/costumeenchant/versions",
+      "featured": false,
+      "hidden": false
+    },
+    {
       "id": "modrinth-fclqBwPa",
       "platform": "modrinth",
       "platformId": "fclqBwPa",
@@ -1152,6 +1202,40 @@
       "updated": "2026-09-30T12:08:27.674287Z",
       "url": "https://modrinth.com/project/autorestart-kingbrezz",
       "downloadUrl": "https://modrinth.com/project/autorestart-kingbrezz/versions",
+      "featured": false,
+      "hidden": false
+    },
+    {
+      "id": "modrinth-iLUwvLsi",
+      "platform": "modrinth",
+      "platformId": "iLUwvLsi",
+      "slug": "antilag-kingbrezz",
+      "title": "AntiLag+",
+      "description": "Advanced server performance monitoring, optimization, and anti-lag protection for Paper 26.2+",
+      "body": "AntiLag+ — A configurable server-performance management plugin for Minecraft servers.",
+      "icon": null,
+      "gallery": [],
+      "categories": [
+        "optimization"
+      ],
+      "loaders": [
+        "bukkit",
+        "paper",
+        "spigot"
+      ],
+      "gameVersions": [
+        "26.1",
+        "26.1.1",
+        "26.1.2",
+        "26.2",
+        "26.3"
+      ],
+      "version": "latest",
+      "downloads": 12,
+      "published": "2026-09-30T06:52:17.802504Z",
+      "updated": "2026-09-30T06:57:18.919692Z",
+      "url": "https://modrinth.com/project/antilag-kingbrezz",
+      "downloadUrl": "https://modrinth.com/project/antilag-kingbrezz/versions",
       "featured": false,
       "hidden": false
     },
