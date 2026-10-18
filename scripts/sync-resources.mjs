@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = join(__dirname, '../public/data/resources.json');
-const MODRINTH_USER = 'KingBrezz';
+const MODRINTH_USER = '6CK7TRJp'; // Use the stable Modrinth user ID so syncing always targets the correct account.
 const SPIGOT_AUTHOR = 'https://www.spigotmc.org/resources/authors/brezz.2530124/';
 
 async function fetchModrinth() {
