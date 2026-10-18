@@ -8,6 +8,7 @@ import { useLanguage } from '../lib/i18n';
 const links = [
   { to: '/', label: 'Home' },
   { to: '/projects', label: 'Projects' },
+  { to: '/mods', label: 'Mods' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
   { to: '/donate', label: 'Donate' },
