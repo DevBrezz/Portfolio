@@ -11,7 +11,10 @@ export function useResources() {
     async function load() {
       try {
         setLoading(true);
-        const res = await fetch(`${import.meta.env.BASE_URL}data/resources.json`);
+        // Avoid serving a cached catalogue after GitHub Actions publishes a new sync.
+        const resourcesUrl = `${import.meta.env.BASE_URL}data/resources.json`;
+        const separator = resourcesUrl.includes('?') ? '&' : '?';
+        const res = await fetch(`${resourcesUrl}${separator}t=${Date.now()}`, { cache: 'no-store' });
         if (!res.ok) throw new Error(`Failed to load resources (${res.status})`);
         const json: ResourcesData = await res.json();
         if (!cancelled) {
