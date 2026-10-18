@@ -1,126 +1,31 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, ShieldCheck, UserRound, Boxes, Handshake, ChevronRight, Sparkles, Bug, Activity } from 'lucide-react';
-import { useResources } from '../hooks/useResources';
-import { ProjectCard } from '../components/ProjectCard';
-import { useLanguage } from '../lib/i18n';
-import { Heart, Download, PackageCheck, Sparkles as SparkleIcon } from 'lucide-react';
+import { ArrowUpRight, Blocks, Compass, PackageOpen, Server, ShieldCheck, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-function ModrinthMark({ className = 'w-5 h-5' }: { className?: string }) {
-  return <svg className={className} viewBox="0 0 24 24" role="img" aria-label="Modrinth" fill="currentColor"><path d="M4.2 3.2 2 5.4v3.1l5.5 5.5 2.2-2.2L4.2 6.3V3.2Zm5.1 0L7.1 5.4v3.1l5.5 5.5 2.2-2.2-5.5-5.5V3.2Zm5.1 0-2.2 2.2v3.1l5.5 5.5 2.2-2.2-5.5-5.5V3.2ZM2 12.6v3.1l5.5 5.5 2.2-2.2-5.5-5.5-2.2-.9Zm5.1 0v3.1l5.5 5.5 2.2-2.2-5.5-5.5-2.2-.9Zm5.1 0v3.1l5.5 5.5 2.2-2.2-5.5-5.5-2.2-.9Z"/></svg>;
-}
-
-const paths = [
-  { number: '01', icon: UserRound, title: 'Who is KingBrezz?', text: 'The developer behind the projects, ideas, and tools.', to: '/about', action: 'Meet the developer' },
-  { number: '02', icon: Boxes, title: 'Plugins & projects', text: 'Explore Minecraft tools published on Modrinth.', to: '/projects', action: 'Explore projects' },
-  { number: '03', icon: Handshake, title: 'Contact & collaboration', text: 'Have an idea, issue, or project to build together?', to: '/contact', action: 'Get in touch' },
+const portals = [
+  { to: '/servers', number: '01', icon: Server, title: 'Server Hub', description: 'Discover Minecraft servers by edition, version, and the way you like to play.', tags: ['Java + Bedrock', 'Game modes'], art: 'portal-server' },
+  { to: '/resources', number: '02', icon: Blocks, title: 'Mods & Resources', description: 'Find mods, texture packs, shaders, addons, and skins for your next world.', tags: ['Java + Bedrock', 'Creator resources'], art: 'portal-resources' },
+  { to: '/plugins', number: '03', icon: PackageOpen, title: 'Plugin Center', description: 'Explore server plugins and check platform compatibility before downloading.', tags: ['Paper', 'Spigot', 'Bukkit'], art: 'portal-plugins' },
 ];
 
-const rotatingTaglines: Record<string, Array<[string, string]>> = {
-  en: [
-    ['Ideas into tools.', 'Better Minecraft worlds.'],
-    ['Plugins with purpose.', 'Servers built to last.'],
-    ['Code with intention.', 'Play without limits.'],
-    ['Small ideas, real impact.', 'Smarter Minecraft tools.'],
-    ['Build safely.', 'Create boldly.'],
-  ],
-  id: [
-    ['Ide jadi karya.', 'Dunia Minecraft lebih baik.'],
-    ['Plugin yang berguna.', 'Server yang lebih stabil.'],
-    ['Kode dengan tujuan.', 'Bermain tanpa batas.'],
-    ['Ide kecil, dampak nyata.', 'Tools Minecraft lebih cerdas.'],
-    ['Bangun dengan aman.', 'Berkarya tanpa ragu.'],
-  ],
-  zh: [
-    ['让想法变成工具。', '打造更好的 Minecraft 世界。'],
-    ['插件创造价值。', '服务器稳定运行。'],
-    ['用心编写代码。', '畅玩无限可能。'],
-    ['小想法，大影响。', '更智能的 Minecraft 工具。'],
-    ['安全构建。', '大胆创造。'],
-  ],
-  nl: [
-    ['Ideeën worden tools.', 'Betere Minecraft-werelden.'],
-    ['Plugins met een doel.', 'Servers die blijven draaien.'],
-    ['Code met intentie.', 'Speel zonder grenzen.'],
-    ['Kleine ideeën, echte impact.', 'Slimmere Minecraft-tools.'],
-    ['Bouw veilig.', 'Creëer met vertrouwen.'],
-  ],
-};
-
 export function Home() {
-  const { resources, loading } = useResources();
-  const { t, language } = useLanguage();
-  const [xp, setXp] = useState(0);
-  const [secretOpen, setSecretOpen] = useState(false);
-  const [taglineIndex, setTaglineIndex] = useState(0);
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setTaglineIndex((current) => (current + 1) % 5);
-    }, 10_000);
-    return () => window.clearInterval(intervalId);
-  }, []);
-  const activeTagline = (rotatingTaglines[language] ?? rotatingTaglines.en)[taglineIndex];
-  const earnXp = () => { setXp((current) => { const next = Math.min(100, current + 10); if (next === 100) setSecretOpen(true); return next; }); };
-  const featured = resources.filter((r) => r.platform === 'modrinth' && r.featured && !r.hidden);
-  const projects = (featured.length ? featured : resources.filter((r) => r.platform === 'modrinth' && !r.hidden))
-    .slice(0, 10);
-
-  return <div className="mc-grid-bg home-shell">
-    <section className="home-hero relative overflow-hidden">
-      <div className="cosmic-backdrop" aria-hidden="true"><div className="cosmic-nebula cosmic-nebula-a"/><div className="cosmic-nebula cosmic-nebula-b"/><div className="cosmic-stars cosmic-stars-one"/><div className="cosmic-stars cosmic-stars-two"/><div className="cosmic-stars cosmic-stars-three"/></div>
-      <div className="hero-ambient hero-ambient-one"/><div className="hero-ambient hero-ambient-two"/>
-      <div className="hero-code-float" aria-hidden="true"><span>public final class</span><br/><b>KingBrezz</b> {'{'}<br/><span>  validate();</span><br/><span>  optimize();</span><br/><span>  build();</span><br/>{'}'}</div>
-      <div className="hero-code-float hero-code-float-two" aria-hidden="true"><span>// system online</span><br/><b>if (idea != null)</b><br/><span>  ship(idea);</span><br/><span>  // no fake stats</span></div>
-      <div className="solar-system" aria-label="Animated solar system illustration" role="img"><div className="solar-orbit solar-orbit-outer"><i className="solar-planet planet-blue"/></div><div className="solar-orbit solar-orbit-mid"><i className="solar-planet planet-green"/></div><div className="solar-orbit solar-orbit-inner"><i className="solar-planet planet-red"/></div><div className="solar-sun"><span/></div><div className="solar-label solar-label-one">ORBITAL / 03</div><div className="solar-label solar-label-two">SYSTEM ONLINE</div></div>
-      <motion.div className="home-hero-content relative max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16" initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }}>
-        <div className="eyebrow home-hero-eyebrow"><span className="status-pulse"/> {language === 'id' ? 'DEVELOPER INDEPENDEN · EKOSISTEM MINECRAFT' : language === 'zh' ? '独立开发者 · MINECRAFT 生态' : language === 'nl' ? 'ONAFHANKELIJKE DEVELOPER · MINECRAFT-ECOSYSTEEM' : 'INDEPENDENT DEVELOPER · MINECRAFT ECOSYSTEM'}</div>
-        <h1 className="hero-title home-title home-rotating-title" aria-live="polite" aria-atomic="true">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span key={`${language}-${taglineIndex}`} className="home-tagline-pair" initial={{ opacity: 0, y: 14, filter: 'blur(5px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }} transition={{ duration: 0.55, ease: 'easeInOut' }}>
-              <span>{activeTagline[0]}</span><br/><span className="hero-gradient">{activeTagline[1]}</span>
-            </motion.span>
-          </AnimatePresence>
-        </h1>
-        <p className="home-lead">{language === 'id' ? <>Saya <strong>KingBrezz</strong> — developer independen yang membuat plugin Minecraft dan alat server dengan fokus pada fitur praktis, desain matang, dan pengembangan transparan.</> : language === 'zh' ? <>我是 <strong>KingBrezz</strong>，一名独立开发者，专注于 Minecraft 插件、服务器工具、实用功能与透明开发。</> : language === 'nl' ? <>Ik ben <strong>KingBrezz</strong> — een onafhankelijke ontwikkelaar van Minecraft-plugins en servertools met aandacht voor praktische functies en transparante techniek.</> : <>I’m <strong>KingBrezz</strong> — an independent developer creating Minecraft plugins and server tools with a focus on practical features, thoughtful design, and transparent engineering.</>}</p>
-        <div className="home-hero-actions flex flex-wrap gap-3 mt-6">
-          <Link to="/projects" className="home-primary">{t.browse} <ArrowRight size={17}/></Link>
-          <a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer" className="home-secondary"><ModrinthMark/> Find me on Modrinth</a>
-          <Link to="/report" className="home-report-cta"><Bug size={17}/> Report a bug <ArrowRight size={15}/></Link>
-        </div>
-        <button type="button" className="xp-console mt-6" onClick={earnXp} aria-label={`Earn XP, current progress ${xp} percent`}>
-          <div className="xp-console-top"><span><Sparkles size={13}/> EXPLORER XP</span><strong>LVL {Math.floor(xp / 25) + 1} <i>{xp}/100 XP</i></strong></div>
-          <div className="xp-track"><span style={{ width: `${xp}%` }}/></div>
-          <div className="xp-console-bottom"><span>{xp === 0 ? 'Tap to collect discovery XP' : xp < 100 ? 'Keep exploring to unlock a secret' : 'Secret unlocked · Nice work!'}</span><span>{xp}%</span></div>
-        </button>
-        {secretOpen && <motion.div className="xp-secret home-xp-secret" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}><Sparkles size={16}/><div><strong>Hidden signal discovered.</strong><p>Good developers stay curious. Keep building, testing, and improving.</p></div><button type="button" onClick={() => setSecretOpen(false)} aria-label="Close secret">×</button></motion.div>}
-        <div className="home-shield-panel home-shield-panel-centered mt-7">
-          <div className="shield-emblem"><ShieldCheck size={31}/><span/></div>
-          <div><div className="shield-kicker">SECURITY-MINDED DEVELOPMENT</div><h2>Built with safety in mind.</h2><p>I prioritize validation, predictable behavior, and careful data handling. Each release should be tested for its intended environment — no software can honestly be guaranteed 100% bug-free or risk-free.</p></div>
-          <Link to="/about" className="shield-more" aria-label="Read about my engineering principles"><ChevronRight size={20}/></Link>
-        </div>
-
-    <section className="report-home-strip max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-6" aria-label="Bug report center">
-      <div className="report-home-card">
-        <div className="report-home-icon"><Activity size={23}/><span /></div>
-        <div className="report-home-copy"><div className="report-home-kicker"><span className="report-live-dot"/> SUPPORT SYSTEM · ONLINE</div><h2>Found something that needs fixing?</h2><p>Send a structured bug report with reproduction steps so the issue can be investigated.</p></div>
-        <Link to="/report" className="report-home-action">Open Report Center <ArrowRight size={16}/></Link>
-        <div className="report-home-scan" aria-hidden="true" />
+  return <div className="cn-page cn-home">
+    <section className="cn-hero">
+      <div className="cn-hero-grid" aria-hidden="true" />
+      <div className="cn-hero-copy">
+        <span className="cn-eyebrow"><Sparkles size={14}/> THE COMMUNITY-POWERED MINECRAFT PLATFORM</span>
+        <h1>Your next world<br/>starts <span>here.</span></h1>
+        <p>One place to discover servers, find trusted resources, and level up your Minecraft server with plugins built for your platform.</p>
+        <div className="cn-hero-actions"><Link to="/resources" className="cn-btn cn-btn-primary">Explore resources <ArrowUpRight size={17}/></Link><Link to="/servers" className="cn-btn cn-btn-ghost"><Compass size={17}/> Find a server</Link></div>
+        <div className="cn-trust-note"><ShieldCheck size={15}/> Compatibility first. Transparent resource information. No invented server stats.</div>
       </div>
+      <div className="cn-hero-art" aria-label="Voxel-inspired Minecraft landscape illustration" role="img"><div className="cn-moon"/><div className="cn-cloud cn-cloud-a"/><div className="cn-cloud cn-cloud-b"/><div className="cn-mountain cn-mountain-back"/><div className="cn-mountain cn-mountain-mid"/><div className="cn-mountain cn-mountain-front"/><div className="cn-cube cn-cube-a"/><div className="cn-cube cn-cube-b"/><div className="cn-cube cn-cube-c"/><div className="cn-art-caption"><span className="cn-live-dot"/> A bigger world awaits <span>↗</span></div></div>
     </section>
-      </motion.div>
+    <section className="cn-portals-section">
+      <div className="cn-section-heading"><div><span className="cn-eyebrow">PICK YOUR ADVENTURE</span><h2>Three ways to play more.</h2></div><p>Everything you need, organized around what you're looking for.</p></div>
+      <div className="cn-portals">{portals.map((p, i) => <motion.div key={p.to} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .08 }}><Link to={p.to} className={`cn-portal ${p.art}`}><div className="cn-portal-top"><span>{p.number} / PORTAL</span><span className="cn-portal-icon"><p.icon size={22}/></span></div><div className="cn-portal-content"><h3>{p.title}</h3><p>{p.description}</p><div className="cn-tags">{p.tags.map(t => <span key={t}>{t}</span>)}</div></div><div className="cn-portal-bottom"><span>Explore section</span><span className="cn-circle-arrow"><ArrowUpRight size={18}/></span></div></Link></motion.div>)}</div>
     </section>
-
-
-    <section className="home-start-section max-w-7xl mx-auto px-4 sm:px-6 pt-5 sm:pt-7 pb-10 sm:pb-14">
-      <div className="section-topline"><div><div className="eyebrow">START HERE</div><h2 className="section-heading mt-3">A little about my world.</h2><p className="text-sm text-mc-muted mt-2">Choose a card to explore a different part of KingBrezz.</p></div></div>
-      <div className="path-grid mt-7">{paths.map((item, i) => <motion.div key={item.number} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .08 }}><Link to={item.to} className="path-card"><div className="path-card-top"><span>{item.number}</span><item.icon size={21}/></div><h3>{item.title}</h3><p>{item.text}</p><div className="path-action">{item.action}<ArrowRight size={15}/></div></Link></motion.div>)}</div>
-    </section>
-
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-      <div className="flex items-end justify-between gap-4 mb-7"><div><div className="eyebrow"><ModrinthMark className="w-4 h-4"/> MODRINTH COLLECTION</div><h2 className="section-heading mt-3">Plugins made by KingBrezz.</h2><p className="text-sm text-mc-muted mt-2">Only projects from my Modrinth catalogue appear here.</p></div><Link to="/projects" className="home-view-all">All projects <ArrowRight size={15}/></Link></div>
-      {loading ? <div className="project-rail">{Array.from({length:4}).map((_,i)=><div key={i} className="skeleton h-64 rounded-xl project-rail-card"/>)}</div> : projects.length ? <div className="project-rail" aria-label="Featured Modrinth projects">{projects.map((r,i)=><div className="project-rail-card" key={r.id}><ProjectCard resource={r} index={i}/></div>)}</div> : <div className="empty-modrinth"><ModrinthMark className="w-8 h-8"/><p>No Modrinth projects are available in the local catalogue yet.</p><a href="https://modrinth.com/user/KingBrezz" target="_blank" rel="noreferrer">Open KingBrezz on Modrinth <ArrowRight size={15}/></a></div>}
-      <div className="rail-hint"><span/> Swipe or scroll sideways to browse <span/></div>
-    </section>
+    <section className="cn-publish-strip"><div className="cn-publish-icon"><PackageOpen size={24}/></div><div><span className="cn-eyebrow">MADE SOMETHING COOL?</span><h2>Share it with the community.</h2><p>Submit your resource for review. Approved submissions can become part of the CubeNest catalogue.</p></div><Link to="/upload" className="cn-btn cn-btn-primary">Upload a resource <ArrowUpRight size={16}/></Link></section>
+    <section className="cn-home-footnote"><span>BUILT FOR MINECRAFT COMMUNITIES</span><span>Java Edition · Bedrock Edition · Server owners · Creators</span></section>
   </div>;
 }
