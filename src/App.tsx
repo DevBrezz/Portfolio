@@ -13,7 +13,7 @@ import { Report } from './pages/Report';
 import { LanguageProvider } from './lib/i18n';
 import { KingBrezzAssistant } from './components/KingBrezzAssistant';
 import { VisitorBadge } from './components/VisitorBadge';
-import { OfflineScreen } from './components/OfflineScreen';
+import { Mods } from './pages/Mods';
 
 export default function App() {
   const [showBoot, setShowBoot] = useState(false);
@@ -34,6 +34,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/mods" element={<Mods />} />
             <Route path="/project/:id" element={<ProjectDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
@@ -47,7 +48,6 @@ export default function App() {
         <KingBrezzAssistant />
         <VisitorBadge />
         {showBoot && <BootScreen />}
-        <OfflineScreen />
       </div>
     </BrowserRouter></LanguageProvider>
   );
