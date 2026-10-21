@@ -1,10 +1,10 @@
 {
-  "lastSynced": "2026-10-21T13:47:03.887Z",
+  "lastSynced": "2026-10-21T18:37:48.989Z",
   "sources": {
     "modrinth": {
       "status": "success",
       "count": 8,
-      "lastSuccess": "2026-10-21T13:47:03.887Z"
+      "lastSuccess": "2026-10-21T18:37:48.989Z"
     },
     "spigot": {
       "status": "error",
@@ -1111,7 +1111,7 @@
         "26.2"
       ],
       "version": "latest",
-      "downloads": 388,
+      "downloads": 400,
       "published": "2026-09-28T17:26:50.062534Z",
       "updated": "2026-10-12T06:41:54.303462Z",
       "url": "https://modrinth.com/project/economysmp",
@@ -1160,7 +1160,7 @@
         "26.3"
       ],
       "version": "latest",
-      "downloads": 40,
+      "downloads": 42,
       "published": "2026-10-06T15:16:57.280867Z",
       "updated": "2026-10-06T15:22:43.732471Z",
       "url": "https://modrinth.com/project/costumeenchant",
@@ -1231,7 +1231,7 @@
         "26.3"
       ],
       "version": "latest",
-      "downloads": 58,
+      "downloads": 60,
       "published": "2026-09-30T06:52:17.802504Z",
       "updated": "2026-09-30T06:57:18.919692Z",
       "url": "https://modrinth.com/project/antilag-kingbrezz",
@@ -1304,7 +1304,7 @@
         "26.3"
       ],
       "version": "latest",
-      "downloads": 287,
+      "downloads": 291,
       "published": "2026-09-28T21:19:40.431311Z",
       "updated": "2026-09-28T21:21:35.165404Z",
       "url": "https://modrinth.com/project/zantifreecam",
